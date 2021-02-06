@@ -20,6 +20,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using xZoneAPI.Data;
+using Microsoft.EntityFrameworkCore;
+using xZoneAPI.Repositories.AccountRepo;
+using xZoneAPI.mappers;
+
+
 
 namespace xZoneAPI
 {
@@ -35,10 +41,12 @@ namespace xZoneAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.AddScoped<IAccountRepo, AccountRepo>();
             services.AddCors();
             services.Configure<AppSettings>(appSettingsSection);
+            services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;

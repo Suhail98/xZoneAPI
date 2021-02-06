@@ -11,15 +11,13 @@ using System.Threading.Tasks;
 ///  @see OtherClasses
 ///  @author your_name_here
 /// </summary>
-namespace xZoneAPI.Controllers.Account
+namespace xZoneAPI.Controllers.AccountControllers
 {
-    /// <summary>
-    ///  A class that represents ...
-    /// 
-    ///  @see OtherClasses
-    ///  @author your_name_here
-    /// </summary>
-    public class AuthenticationController : ControllerBase
+    [Route("api/v{version:apiVersion}/account")]
+    //[Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
     {
-    }
+        
+    } 
 }
