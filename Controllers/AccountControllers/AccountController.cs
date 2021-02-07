@@ -1,9 +1,13 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using xZoneAPI.Models.Accounts;
+using xZoneAPI.Repositories.AccountRepo;
 
 /// <summary>
 ///  A class that represents ...
@@ -18,6 +22,67 @@ namespace xZoneAPI.Controllers.AccountControllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        
+        IAccountRepo repo;
+        private readonly IMapper mapper;
+        public AccountController(IAccountRepo _repo, IMapper _mapper)
+        {
+            repo = _repo;
+            mapper = _mapper;
+        }
+        [HttpGet]
+        public IActionResult GetAccounts()
+        {
+            var objList = repo.GetAllAccounts();
+            var dtoList = new List<Account>();
+            foreach (var obj in objList)
+            {
+                dtoList.Add((Account)obj);
+            }
+            return Ok(dtoList);
+        }
+        [HttpGet("{id:int}")]
+        public IActionResult GetAccount(int id)
+        {
+            Account account = repo.FindAccountById(id);
+            if (account == null)
+                return NotFound();
+            return Ok(account);
+        }
+
+        [HttpDelete("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteAccount(int id)
+        {
+            Account account = repo.FindAccountById(id);
+            if (account == null)
+                return NotFound("Check Id");
+            if(!repo.DeleteAccount(account))
+            {
+                ModelState.AddModelError("", $"something went wrong deleting the record{account.Id}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+
+        }
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult UpdateAccount(int id, [FromBody] AccountRegisterInDto account)
+        {
+            if (account == null)
+            {
+                return BadRequest(ModelState);
+            }
+            Account NewAccount = mapper.Map<Account>(account);
+            NewAccount.Id = id;
+            if (!repo.UpdateAccount(NewAccount))
+            {
+                ModelState.AddModelError("", $"something went wrong updating the record{account.UserName}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
     } 
 }

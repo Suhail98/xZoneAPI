@@ -37,11 +37,13 @@ namespace xZoneAPI.Controllers.AccountControllers
         [HttpPost]
         public IActionResult register([FromBody] AccountRegisterInDto account)
         {
-            if (account == null)
+            if (account == null) 
                 return BadRequest();
             Account accountObj = mapper.Map<Account>(account);
+            if (repo.FindAccountByEmail(account.Email) != null)
+                return NotFound("Email ALready Exist");
            Account _account = repo.register(accountObj);
-            _account = "";
+            _account.Password = "";
             return Ok(_account);
         }
     }

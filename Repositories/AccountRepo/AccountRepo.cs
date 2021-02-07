@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,9 +21,37 @@ namespace xZoneAPI.Repositories.AccountRepo
             Save();
             return account;
         }
+        public Account FindAccountByEmail(string email)
+        {
+           Account account =db.Accounts.SingleOrDefault(x => x.Email == email);
+            return account;
+        }
+        public Account FindAccountById(int id)
+        {
+            Account account = db.Accounts.SingleOrDefault(x => x.Id == id);
+            return account;
+        }
+        public ICollection<Account> GetAllAccounts()
+        {
+            
+            return db.Accounts.ToList();
+        }
+        public bool DeleteAccount(Account account)
+        {
+            db.Accounts.Remove(account);
+            return Save();
+        }
+        public bool UpdateAccount(Account acount)
+        {
+            db.Accounts.Update(acount);
+            return Save();
+        }
+
         public bool Save()
         {
             return db.SaveChanges() >= 0;
         }
+
+
     }
 }
