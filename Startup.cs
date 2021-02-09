@@ -42,6 +42,10 @@ namespace xZoneAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            //local
+            services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
+            
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.AddScoped<IAccountRepo, AccountRepo>();
             services.AddCors();

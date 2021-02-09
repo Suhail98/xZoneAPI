@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using xZoneAPI.Models;
 using xZoneAPI.Models.Accounts;
+using xZoneAPI.Models.TaskModel;
 
 namespace xZoneAPI.Data
 {
@@ -16,5 +17,6 @@ namespace xZoneAPI.Data
 
         }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<AppTask> appTasks { get; set; }
     }
 }

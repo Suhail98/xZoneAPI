@@ -41,7 +41,7 @@ namespace xZoneAPI.Controllers.AccountControllers
                 return BadRequest();
             Account accountObj = mapper.Map<Account>(account);
            Account _account = repo.register(accountObj);
-            _account = "";
+            _account.Password = "";
             return Ok(_account);
         }
     }
