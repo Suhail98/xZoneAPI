@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using xZoneAPI.Models.Accounts;
+using xZoneAPI.Models.TaskModel;
 
 namespace xZoneAPI.mappers
 {
@@ -12,7 +12,7 @@ namespace xZoneAPI.mappers
         public xZoneMapper()
         {
             CreateMap<Account, AccountRegisterInDto>().ReverseMap();
-            CreateMap<Account, AccountLoginDto>().ReverseMap();
+            CreateMap<AppTask, TaskDto>().ReverseMap();
         }
     }
 }

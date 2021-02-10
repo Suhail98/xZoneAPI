@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>xZoneAPI</name>
+    </assembly>
+    <members>
+        <member name="T:xZoneAPI.Controllers.AccountControllers.AuthenticationController">
+            <summary>
+             A class that represents ...
+            
+             @see OtherClasses
+             @author your_name_here
+            </summary>
+        </member>
+        <member name="T:Badge">
+            <summary>
+             A class that represents ...
+            
+             @see OtherClasses
+             @author your_name_here
+            </summary>
+        </member>
+        <member name="T:Rank">
+            <summary>
+             A class that represents ...
+            
+             @see OtherClasses
+             @author your_name_here
+            </summary>
+        </member>
+        <member name="T:BadgeRepository">
+            <summary>
+             A class that represents ...
+            
+             @see OtherClasses
+             @author your_name_here
+            </summary>
+        </member>
+        <member name="T:IBadgeRepository">
+            <summary>
+             An interface defining operations expected of ...
+            
+             @see OtherClasses
+             @author your_name_here
+            </summary>
+        </member>
+        <member name="T:IRankRepository">
+            <summary>
+             An interface defining operations expected of ...
+            
+             @see OtherClasses
+             @author your_name_here
+            </summary>
+        </member>
+        <member name="T:RankRepository">
+            <summary>
+             A class that represents ...
+            
+             @see OtherClasses
+             @author your_name_here
+            </summary>
+        </member>
+    </members>
+</doc>
