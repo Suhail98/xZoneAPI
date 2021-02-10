@@ -1,12 +1,9 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Models.Skill;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using xZoneAPI.Models;
 using xZoneAPI.Models.Accounts;
 using xZoneAPI.Models.TaskModel;
+//using System.Data.Entity;
 
 namespace xZoneAPI.Data
 {
@@ -18,5 +15,6 @@ namespace xZoneAPI.Data
         }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AppTask> appTasks { get; set; }
+     //   public DbSet<Skill> skills { get; set; }
     }
 }

@@ -24,8 +24,7 @@ using xZoneAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.mappers;
-
-
+using xZoneAPI.Repositories.TaskRepo;
 
 namespace xZoneAPI
 {
@@ -41,15 +40,16 @@ namespace xZoneAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+
             //local
-            services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
-            
+            //services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
+
+            services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.AddScoped<IAccountRepo, AccountRepo>();
             services.AddCors();
             services.Configure<AppSettings>(appSettingsSection);
+            services.AddScoped<IAccountRepo, AccountRepo>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {
@@ -75,7 +75,6 @@ namespace xZoneAPI
                           Title = "Parky API trails",
                           Version = "1",
                           Description = "Udemy Parky API"
-
                       });*/
                 var xmlCommentFile = $"{ Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
@@ -101,14 +100,6 @@ namespace xZoneAPI
                     ValidateAudience = false
                 };
             });
-            /*
-            services.AddControllers();
-
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "xZone API", Version = "v1" });
-            });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,3 @@
+﻿SET IDENTITY_INSERT [dbo].[appTasks] ON
+INSERT INTO [dbo].[appTasks] ([Id], [UserId], [Name], [Priority], [parentID], [DueDate], [Remainder], [CompleteDate]) VALUES (1, 1,'task1', 0, NULL, NULL, NULL, NULL)
+SET IDENTITY_INSERT [dbo].[appTasks] OFF

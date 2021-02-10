@@ -10,9 +10,9 @@ using xZoneAPI.Repositories.TaskRepo;
 
 namespace xZoneAPI.Controllers.TaskControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/task")]
     [ApiController]
-    public class AppTaskController : Controller
+    public class AppTaskController : ControllerBase
     {
         private ITaskRepository TaskRepo;
         private readonly IMapper mapper;
@@ -35,10 +35,11 @@ namespace xZoneAPI.Controllers.TaskControllers
             return Ok(RetTasks);
         }
 
-        [HttpGet("{TaskId:int}")]
-        public IActionResult EditAppTask(TaskDto taskDto)
+        [HttpPatch("{TaskId:int}")]
+        public IActionResult EditAppTask(int TaskId, [FromBody] TaskDto taskDto)
         {
             var xTask = mapper.Map<AppTask>(taskDto);
+            xTask.Id = TaskId;
             var RetTask = TaskRepo.UpdateTask( xTask );
             return Ok(RetTask);
         }
@@ -54,10 +55,7 @@ namespace xZoneAPI.Controllers.TaskControllers
             var checkExisting = TaskRepo.IsTaskExists(xTask);
             if (checkExisting )
             {
-                ModelState.AddModelError("", "You have task with same name");
-            }
-            if ( !ModelState.IsValid)
-            {
+                ModelState.AddModelError("", "You have task with same id");
                 return BadRequest(ModelState);
             }
             var OperationStatus = TaskRepo.AddTask(xTask);
@@ -69,7 +67,9 @@ namespace xZoneAPI.Controllers.TaskControllers
             return Ok();
         }
 
-        [HttpGet("{TaskId:int}")]
+        [HttpDelete("{TaskId:int}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteAppTask(int TaskId)
         {
             var xTask = TaskRepo.GetTask(TaskId);
