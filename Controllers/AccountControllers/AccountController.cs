@@ -30,6 +30,7 @@ namespace xZoneAPI.Controllers.AccountControllers
             mapper = _mapper;
         }
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAccounts()
         {
             var objList = repo.GetAllAccounts();
@@ -41,14 +42,25 @@ namespace xZoneAPI.Controllers.AccountControllers
             return Ok(dtoList);
         }
         [HttpGet("{id:int}")]
-        public IActionResult GetAccount(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetAccountByID(int id)
         {
             Account account = repo.FindAccountById(id);
             if (account == null)
                 return NotFound();
             return Ok(account);
         }
-
+        [HttpGet("email/{email}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetAccountByEmail(string email)
+        {
+            Account account = repo.FindAccountByEmail(email);
+            if (account == null)
+                return NotFound();
+            return Ok(account);
+        }
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -68,13 +80,21 @@ namespace xZoneAPI.Controllers.AccountControllers
         }
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        
         public IActionResult UpdateAccount(int id, [FromBody] AccountRegisterInDto account)
         {
             if (account == null)
             {
                 return BadRequest(ModelState);
             }
+        /*    Account emailAccount = repo.FindAccountByEmail(account.Email);
+          if (emailAccount != null && emailAccount.Id != id)
+            {
+                ModelState.AddModelError("", $"This email already exists");
+                return StatusCode(400, ModelState);
+            }*/
             Account NewAccount = mapper.Map<Account>(account);
             NewAccount.Id = id;
             if (!repo.UpdateAccount(NewAccount))

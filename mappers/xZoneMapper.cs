@@ -12,6 +12,7 @@ namespace xZoneAPI.mappers
         public xZoneMapper()
         {
             CreateMap<Account, AccountRegisterInDto>().ReverseMap();
+            CreateMap<Account, AccountLoginDto>().ReverseMap();
         }
     }
 }

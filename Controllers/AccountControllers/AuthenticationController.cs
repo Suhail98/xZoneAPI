@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -34,7 +35,8 @@ namespace xZoneAPI.Controllers.AccountControllers
             repo = _repo;
             mapper = _mapper;
         }
-        [HttpPost]
+        [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult register([FromBody] AccountRegisterInDto account)
         {
             if (account == null) 
@@ -45,6 +47,19 @@ namespace xZoneAPI.Controllers.AccountControllers
            Account _account = repo.register(accountObj);
             _account.Password = "";
             return Ok(_account);
+        }
+        
+        [HttpPost("login")]
+        public IActionResult login([FromBody] AccountLoginDto account)
+        {
+            Account accountObj = repo.AuthenticateUser(account.Email, account.Password);
+            if (account == null)
+                return BadRequest("Error");
+            if(accountObj == null)
+            {
+                return BadRequest("email or password are wrong");
+            }
+            return Ok(accountObj);
         }
     }
 }

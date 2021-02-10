@@ -43,9 +43,9 @@ namespace xZoneAPI
         {
             services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.AddScoped<IAccountRepo, AccountRepo>();
             services.AddCors();
             services.Configure<AppSettings>(appSettingsSection);
+            services.AddScoped<IAccountRepo, AccountRepo>();
             services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {

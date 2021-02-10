@@ -12,6 +12,7 @@ namespace xZoneAPI.Repositories.AccountRepo
         Account register(Account account);
         Account FindAccountByEmail(string Email);
         Account FindAccountById(int Id);
+        Account AuthenticateUser(string email, string password);
         ICollection<Account> GetAllAccounts();
         bool DeleteAccount(Account account);
         bool UpdateAccount(Account account);

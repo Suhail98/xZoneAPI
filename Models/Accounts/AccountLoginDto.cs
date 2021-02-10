@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace xZoneAPI.Models.Accounts
 {
-    public class AccountRegisterInDto
+    public class AccountLoginDto
     {
-        public int Id { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required]
-        public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
     }
