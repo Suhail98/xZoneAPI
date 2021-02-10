@@ -36,9 +36,10 @@ namespace xZoneAPI.Controllers.TaskControllers
         }
 
         [HttpGet("{TaskId:int}")]
-        public IActionResult EditAppTask(int TaskId, TaskDto taskDto)
+        public IActionResult EditAppTask(TaskDto taskDto)
         {
-            var RetTask = TaskRepo.UpdateTask(TaskId, taskDto);
+            var xTask = mapper.Map<AppTask>(taskDto);
+            var RetTask = TaskRepo.UpdateTask( xTask );
             return Ok(RetTask);
         }
 
@@ -49,7 +50,8 @@ namespace xZoneAPI.Controllers.TaskControllers
             {
                 return BadRequest(ModelState);
             }
-            var checkExisting = TaskRepo.IsTaskExists(taskDto.Name);
+            var xTask = mapper.Map<AppTask>(taskDto);
+            var checkExisting = TaskRepo.IsTaskExists(xTask);
             if (checkExisting )
             {
                 ModelState.AddModelError("", "You have task with same name");
@@ -58,8 +60,8 @@ namespace xZoneAPI.Controllers.TaskControllers
             {
                 return BadRequest(ModelState);
             }
-            var OperationStatus = TaskRepo.AddTask(taskDto);
-            if (OperationStatus == null)
+            var OperationStatus = TaskRepo.AddTask(xTask);
+            if ( !OperationStatus )
             {
                 ModelState.AddModelError("", $"Something wrong in adding {taskDto.Name} task");
                 return StatusCode(500, ModelState);
@@ -70,14 +72,15 @@ namespace xZoneAPI.Controllers.TaskControllers
         [HttpGet("{TaskId:int}")]
         public IActionResult DeleteAppTask(int TaskId)
         {
-            if (!TaskRepo.IsTaskExists(TaskId))
+            var xTask = TaskRepo.GetTask(TaskId);
+            if (!TaskRepo.IsTaskExists(xTask))
             {
                 return NotFound();
             }
-            var OperationStatus = TaskRepo.DeleteTask(TaskId);
+            var OperationStatus = TaskRepo.DeleteTask(xTask);
             if ( !OperationStatus )
             {
-                ModelState.AddModelError("", $"Something wrong in deleting {TaskRepo.GetTask(TaskId).Name} task");
+                ModelState.AddModelError("", $"Something wrong in deleting {xTask.Name} task");
                 return StatusCode(500, ModelState);
             }
             
