@@ -74,6 +74,8 @@ namespace xZoneAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.HasIndex("parentID");
 
                     b.ToTable("appTasks");
@@ -81,11 +83,19 @@ namespace xZoneAPI.Migrations
 
             modelBuilder.Entity("xZoneAPI.Models.TaskModel.AppTask", b =>
                 {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("xZoneAPI.Models.TaskModel.AppTask", "Parent")
                         .WithMany()
                         .HasForeignKey("parentID");
 
                     b.Navigation("Parent");
+
+                    b.Navigation("user");
                 });
 #pragma warning restore 612, 618
         }

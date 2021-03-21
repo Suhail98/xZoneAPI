@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using xZoneAPI.Models.Accounts;
 
 namespace xZoneAPI.Models.TaskModel
 {
@@ -16,13 +17,14 @@ namespace xZoneAPI.Models.TaskModel
         [Required]
         public int UserId { get; set; }
         [ForeignKey("UserId")]
+        public Account user { get; set; }
         
         [Required]
         public string Name { get; set; }
         public int? Priority { get; set; }
-        [ForeignKey("parentID")]
-        public int? parentID { get; set; }
         
+        public int? parentID { get; set; }
+        [ForeignKey("parentID")]
         public AppTask? Parent { get; set; }
     //    public int skillID { get; set; }
     //    [ForeignKey("skilID")]
