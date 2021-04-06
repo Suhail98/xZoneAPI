@@ -48,7 +48,7 @@ namespace xZoneAPI.Controllers.AccountControllers
         {
             Account account = repo.FindAccountById(id);
             if (account == null)
-                return NotFound();
+                return NotFound();        
             return Ok(account);
         }
         [HttpGet("email/{email}")]
@@ -89,12 +89,6 @@ namespace xZoneAPI.Controllers.AccountControllers
             {
                 return BadRequest(ModelState);
             }
-        /*    Account emailAccount = repo.FindAccountByEmail(account.Email);
-          if (emailAccount != null && emailAccount.Id != id)
-            {
-                ModelState.AddModelError("", $"This email already exists");
-                return StatusCode(400, ModelState);
-            }*/
             Account NewAccount = mapper.Map<Account>(account);
             NewAccount.Id = id;
             if (!repo.UpdateAccount(NewAccount))

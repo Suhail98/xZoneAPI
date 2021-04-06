@@ -9,7 +9,15 @@
       "DEBUG",
       "NET",
       "NET5_0",
-      "NETCOREAPP"
+      "NETCOREAPP",
+      "NET5_0_OR_GREATER",
+      "NETCOREAPP1_0_OR_GREATER",
+      "NETCOREAPP1_1_OR_GREATER",
+      "NETCOREAPP2_0_OR_GREATER",
+      "NETCOREAPP2_1_OR_GREATER",
+      "NETCOREAPP2_2_OR_GREATER",
+      "NETCOREAPP3_0_OR_GREATER",
+      "NETCOREAPP3_1_OR_GREATER"
     ],
     "languageVersion": "9.0",
     "platform": "",
@@ -27,9 +35,9 @@
         "dependencies": {
           "AutoMapper": "10.1.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.1",
-          "Microsoft.AspNet.WebApi.Versioning.ApiExplorer": "4.1.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.1",
-          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "5.0.1",
+          "Microsoft.AspNet.WebApi.Versioning.ApiExplorer": "4.1.1",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.4",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "5.0.4",
           "Microsoft.AspNetCore.Mvc.Versioning": "5.0.0-preview.2",
           "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer": "5.0.0-preview.2",
           "Microsoft.EntityFrameworkCore": "5.0.3",
@@ -365,39 +373,39 @@
           }
         }
       },
-      "Microsoft.AspNet.WebApi.Versioning.ApiExplorer/4.1.0": {
+      "Microsoft.AspNet.WebApi.Versioning.ApiExplorer/4.1.1": {
         "runtime": {
           "lib/net45/Microsoft.AspNet.WebApi.Versioning.ApiExplorer.dll": {
             "assemblyVersion": "4.1.0.0",
-            "fileVersion": "4.1.7612.3762"
+            "fileVersion": "4.1.7710.5712"
           }
         },
         "compile": {
           "lib/net45/Microsoft.AspNet.WebApi.Versioning.ApiExplorer.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.1": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.4": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.7.1"
         },
         "runtime": {
           "lib/net5.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
-            "assemblyVersion": "5.0.1.0",
-            "fileVersion": "5.0.120.60107"
+            "assemblyVersion": "5.0.4.0",
+            "fileVersion": "5.0.421.11815"
           }
         },
         "compile": {
           "lib/net5.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Authentication.OpenIdConnect/5.0.1": {
+      "Microsoft.AspNetCore.Authentication.OpenIdConnect/5.0.4": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.7.1"
         },
         "runtime": {
           "lib/net5.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll": {
-            "assemblyVersion": "5.0.1.0",
-            "fileVersion": "5.0.120.60107"
+            "assemblyVersion": "5.0.4.0",
+            "fileVersion": "5.0.421.11815"
           }
         },
         "compile": {
@@ -3085,26 +3093,26 @@
       "path": "humanizer.core/2.8.26",
       "hashPath": "humanizer.core.2.8.26.nupkg.sha512"
     },
-    "Microsoft.AspNet.WebApi.Versioning.ApiExplorer/4.1.0": {
+    "Microsoft.AspNet.WebApi.Versioning.ApiExplorer/4.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3XuHKjzVjfl2KWZDurgCIpVhWvP1awbsa6bnPz8RqtDS/cNfTaL6lYuDjX+kVkfCfaMFzamEC66oNTYKNQCbcA==",
-      "path": "microsoft.aspnet.webapi.versioning.apiexplorer/4.1.0",
-      "hashPath": "microsoft.aspnet.webapi.versioning.apiexplorer.4.1.0.nupkg.sha512"
+      "sha512": "sha512-60rzmw5CQ4jP6qW4r4u6A+/mimwiDuHlPQpqfT8SPlvu0/LhOHXzY6uLhiZAlc05F/lVdLJPu2m62J7xhzSjJg==",
+      "path": "microsoft.aspnet.webapi.versioning.apiexplorer/4.1.1",
+      "hashPath": "microsoft.aspnet.webapi.versioning.apiexplorer.4.1.1.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.1": {
+    "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BGCA7V2+x6gjzZcOLfn1UYTicTBbK1kMVsoV56qiVc2+zpdEc62YPbLCC7jBUpjCeS9w/5FkGMkjvtwCarH7hg==",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/5.0.1",
-      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.5.0.1.nupkg.sha512"
+      "sha512": "sha512-gJ4v5Sh6AIzaz3okQ8pGuigTYfWAefaWfTobqU0YCKdsDMTUA1aAvcnVYqYUsb16vGcaVyWIBd4L8G9Ya5oU6w==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/5.0.4",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.5.0.4.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.OpenIdConnect/5.0.1": {
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect/5.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bZZrUvT54W3lKQiP7e/11e2h76Qk81bG5TlqLB7tOTg02Uc02dYpbm6488NwmeKfSfO8Pto8rPwy5aq2rFRSgA==",
-      "path": "microsoft.aspnetcore.authentication.openidconnect/5.0.1",
-      "hashPath": "microsoft.aspnetcore.authentication.openidconnect.5.0.1.nupkg.sha512"
+      "sha512": "sha512-mwTyp4aY9SMEs+d9PDhHRfoZE9stjCcPsxYhQBrlgrCnI7c3L1w77XgNI8dyJSpr93UhOesriKe2HuLmDAOubw==",
+      "path": "microsoft.aspnetcore.authentication.openidconnect/5.0.4",
+      "hashPath": "microsoft.aspnetcore.authentication.openidconnect.5.0.4.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Mvc.Versioning/5.0.0-preview.2": {
       "type": "package",
