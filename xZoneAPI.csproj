@@ -25,7 +25,21 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\AccountControllers\" />
+    <Folder Include="Controllers\Badge\" />
+    <Folder Include="Controllers\ProjectControllers\" />
+    <Folder Include="Controllers\Rank\" />
+    <Folder Include="Controllers\Skill\" />
+    <Folder Include="Models\Rank\" />
+    <Folder Include="Repositories\Badge\" />
+    <Folder Include="Repositories\Rank\" />
+    <Folder Include="Repositories\Skill\" />
+  </ItemGroup>
+
 
 </Project>

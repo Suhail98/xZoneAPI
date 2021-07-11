@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using xZoneAPI.Models.Skills;
 using xZoneAPI.Models.Ranks;
 using xZoneAPI.Models.Badges;
+using Microsoft.CodeAnalysis;
 /// <summary>
 ///  A class that represents ...
 /// 
@@ -36,6 +37,7 @@ namespace xZoneAPI.Models.Accounts
         public int? RankID { get; set; }
         
         public Rank Rank { get; set; }
+        //ICollection<Project> projects;
      
     }
 }
