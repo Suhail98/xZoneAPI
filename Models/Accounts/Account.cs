@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using xZoneAPI.Models.Skills;
+using xZoneAPI.Models.Ranks;
+using xZoneAPI.Models.Badges;
 /// <summary>
 ///  A class that represents ...
 /// 
@@ -24,6 +27,15 @@ namespace xZoneAPI.Models.Accounts
         public string Password { get; set; }
         [NotMapped]
         public string Token { get; set; }
+        public string? bio { get; set; }
+
+        public ICollection<AccountSkill> Skills { get; set; }
+        public ICollection<AccountBadge> Badges { get; set; }
+
+        [ForeignKey("Rank")]
+        public int? RankID { get; set; }
+        
+        public Rank Rank { get; set; }
      
     }
 }

@@ -29,6 +29,7 @@ namespace xZoneAPI.Controllers.AccountControllers
             repo = _repo;
             mapper = _mapper;
         }
+        
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAccounts()

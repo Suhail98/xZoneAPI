@@ -34,13 +34,99 @@ namespace xZoneAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RankID")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bio")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RankID");
+
+                    b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountBadges", b =>
+                {
+                    b.Property<int>("AccountID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BadgeID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AccountID", "BadgeID");
+
+                    b.HasIndex("BadgeID");
+
+                    b.ToTable("AccountBadges");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountSkill", b =>
+                {
+                    b.Property<int>("AccountID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AccountID", "SkillID");
+
+                    b.HasIndex("SkillID");
+
+                    b.ToTable("AccountSkill");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Badges.Badge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Badges");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Ranks.Rank", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ranks");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Skills.Skill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.TaskModel.AppTask", b =>
@@ -81,6 +167,53 @@ namespace xZoneAPI.Migrations
                     b.ToTable("appTasks");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.Account", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Ranks.Rank", "Rank")
+                        .WithMany()
+                        .HasForeignKey("RankID");
+
+                    b.Navigation("Rank");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountBadges", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
+                        .WithMany("Badges")
+                        .HasForeignKey("AccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Badges.Badge", "Badge")
+                        .WithMany("AccountBadges")
+                        .HasForeignKey("BadgeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Badge");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountSkill", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
+                        .WithMany("Skills")
+                        .HasForeignKey("AccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Skills.Skill", "Skill")
+                        .WithMany("AccountsSkill")
+                        .HasForeignKey("SkillID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Skill");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.TaskModel.AppTask", b =>
                 {
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "user")
@@ -96,6 +229,23 @@ namespace xZoneAPI.Migrations
                     b.Navigation("Parent");
 
                     b.Navigation("user");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.Account", b =>
+                {
+                    b.Navigation("Badges");
+
+                    b.Navigation("Skills");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Badges.Badge", b =>
+                {
+                    b.Navigation("AccountBadges");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Skills.Skill", b =>
+                {
+                    b.Navigation("AccountsSkill");
                 });
 #pragma warning restore 612, 618
         }

@@ -24,8 +24,10 @@ using xZoneAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.mappers;
-
-
+using xZoneAPI.Repositories.TaskRepo;
+using xZoneAPI.Repositories.Skills;
+using xZoneAPI.Repositories.Badges;
+using xZoneAPI.Repositories.Ranks;
 
 namespace xZoneAPI
 {
@@ -46,6 +48,10 @@ namespace xZoneAPI
             services.AddCors();
             services.Configure<AppSettings>(appSettingsSection);
             services.AddScoped<IAccountRepo, AccountRepo>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
+            services.AddScoped<IAccountSkillRepo, SkillRepo>();
+            services.AddScoped<IBadgeRepo, BadgeRepo>();
+            services.AddScoped<IRankRepo, RankRepo>();
             services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {
