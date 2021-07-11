@@ -12,14 +12,6 @@
              @author your_name_here
             </summary>
         </member>
-        <member name="T:Badge">
-            <summary>
-             A class that represents ...
-            
-             @see OtherClasses
-             @author your_name_here
-            </summary>
-        </member>
         <member name="T:Rank">
             <summary>
              A class that represents ...

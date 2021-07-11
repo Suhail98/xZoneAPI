@@ -18,11 +18,11 @@ using System.Text;
 using System.Threading.Tasks;
 namespace xZoneAPI.Repositories.AccountRepo
 {
-    public class AccountRepo : IAccountRepo
+    public class AccountRepository : IAccountRepo
     {
         ApplicationDBContext db;
         private readonly AppSettings appSettings;
-        public AccountRepo(ApplicationDBContext _db, IOptions<AppSettings> _appSettings)
+        public AccountRepository(ApplicationDBContext _db, IOptions<AppSettings> _appSettings)
         {
             db = _db;
             appSettings = _appSettings.Value;

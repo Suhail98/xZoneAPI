@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.CodeAnalysis;
 /// <summary>
 ///  A class that represents ...
 /// 
@@ -24,6 +25,7 @@ namespace xZoneAPI.Models.Accounts
         public string Password { get; set; }
         [NotMapped]
         public string Token { get; set; }
+        //ICollection<Project> projects;
      
     }
 }

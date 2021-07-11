@@ -24,8 +24,10 @@ using xZoneAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.mappers;
-
-
+using xZoneAPI.Repositories.SectionRepo;
+using xZoneAPI.Repositories.TaskRepo;
+using xZoneAPI.Repositories.ProjectRepo;
+using xZoneAPI.Repositories.RoadmapRepo;
 
 namespace xZoneAPI
 {
@@ -45,7 +47,12 @@ namespace xZoneAPI
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.AddCors();
             services.Configure<AppSettings>(appSettingsSection);
-            services.AddScoped<IAccountRepo, AccountRepo>();
+            services.AddScoped<ISectionRepository, SectionRepository>();
+            services.AddScoped<IAccountRepo, AccountRepository>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
+            services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IRoadmapRepository, RoadmapRepository>();
             services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {
@@ -65,14 +72,7 @@ namespace xZoneAPI
                         Title = "xZone API",
                         Version = "1",
                     });
-                /*  options.SwaggerDoc("ParkyOpenAPISpecTrails",
-                      new Microsoft.OpenApi.Models.OpenApiInfo()
-                      {
-                          Title = "Parky API trails",
-                          Version = "1",
-                          Description = "Udemy Parky API"
 
-                      });*/
                 var xmlCommentFile = $"{ Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlCommentsFullPath);
