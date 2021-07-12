@@ -8,6 +8,7 @@ using xZoneAPI.Models.Skills;
 using xZoneAPI.Models.Ranks;
 using xZoneAPI.Models.Badges;
 using Microsoft.CodeAnalysis;
+using xZoneAPI.Models.TaskModel;
 /// <summary>
 ///  A class that represents ...
 /// 
@@ -39,8 +40,10 @@ namespace xZoneAPI.Models.Accounts
         //public int? RankID { get; set; }
         
         public RankType Rank { get; set; }
-        
-        ICollection<Project> projects;
+
+        public ICollection<AppTask> tasks { get; set; }
+        public ICollection<Project> projects;
+       
      
     }
 }

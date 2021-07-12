@@ -10,6 +10,8 @@ using xZoneAPI.Models.ProjectModel;
 using xZoneAPI.Models.SectionModel;
 using xZoneAPI.Models.ProjectTaskModel;
 using xZoneAPI.Models.RoadmapModel;
+using xZoneAPI.Models.Zones;
+using xZoneAPI.Models.Posts;
 //using System.Data.Entity;
 
 namespace xZoneAPI.Data
@@ -20,6 +22,16 @@ namespace xZoneAPI.Data
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AccountSkill>().HasKey(ba => new { ba.AccountID, ba.SkillID });
+            modelBuilder.Entity<AccountBadge>().HasKey(ba => new { ba.AccountID, ba.BadgeID });
+            modelBuilder.Entity<ZoneMember>().HasKey(ba => new { ba.ZoneId, ba.AccountId });
+            modelBuilder.Entity<ZoneSkill>().HasKey(ba => new { ba.ZoneId, ba.SkillId });
+            modelBuilder.Entity<AppTask>().ToTable("Tasks");
+            modelBuilder.Entity<ProjectTask>().ToTable("ProjectTasks");
+
+        }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AppTask> appTasks { get; set; }
         public DbSet<Skill> Skills { get; set; }
@@ -27,15 +39,7 @@ namespace xZoneAPI.Data
         public DbSet<Badge> Badges { get; set; }
         public DbSet<AccountSkill> AccountSkills { get; set; }
         public DbSet<AccountBadge> AccountBadges { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AccountSkill>().HasKey(ba => new { ba.AccountID, ba.SkillID });
-            modelBuilder.Entity<AccountBadge>().HasKey(ba => new { ba.AccountID, ba.BadgeID });
-            modelBuilder.Entity<AppTask>().ToTable("Tasks");
-            modelBuilder.Entity<ProjectTask>().ToTable("ProjectTasks");
-
-        }
-
+      
         public DbSet<Project> Projects { get; set; }
 
         public DbSet<Section> Sections { get; set; }
@@ -44,7 +48,10 @@ namespace xZoneAPI.Data
 
         public DbSet<Roadmap> Roadmaps { get; set; }
 
+        public DbSet<Zone> Zones { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<ZoneSkill> ZoneSkills { get; set; }
+        public DbSet<ZoneMember> ZoneMembers { get; set; }
 
-        //   public DbSet<Skill> skills { get; set; }
     }
 }

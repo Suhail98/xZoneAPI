@@ -95,6 +95,31 @@ namespace xZoneAPI.Migrations
                     b.ToTable("Badges");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.Posts.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("WriterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZoneId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WriterId");
+
+                    b.HasIndex("ZoneId");
+
+                    b.ToTable("Posts");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.ProjectModel.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -273,6 +298,69 @@ namespace xZoneAPI.Migrations
                     b.ToTable("Tasks");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.Zones.Zone", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JoinCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Privacy")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Zones");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Zones.ZoneMember", b =>
+                {
+                    b.Property<int>("ZoneId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumOfCompletedTasks")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.HasKey("ZoneId", "AccountId");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("ZoneMembers");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Zones.ZoneSkill", b =>
+                {
+                    b.Property<int>("ZoneId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ZoneId", "SkillId");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("ZoneSkills");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountBadge", b =>
                 {
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
@@ -309,6 +397,25 @@ namespace xZoneAPI.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("Skill");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Posts.Post", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Writer")
+                        .WithMany()
+                        .HasForeignKey("WriterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Zones.Zone", "Zone")
+                        .WithMany("Posts")
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Writer");
+
+                    b.Navigation("Zone");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.ProjectModel.Project", b =>
@@ -364,7 +471,7 @@ namespace xZoneAPI.Migrations
             modelBuilder.Entity("xZoneAPI.Models.TaskModel.AppTask", b =>
                 {
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "User")
-                        .WithMany()
+                        .WithMany("tasks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -372,11 +479,51 @@ namespace xZoneAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.Zones.ZoneMember", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Zones.Zone", "Zone")
+                        .WithMany("ZoneMembers")
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Zone");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Zones.ZoneSkill", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Skills.Skill", "Skill")
+                        .WithMany()
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Zones.Zone", "Zone")
+                        .WithMany("ZoneSkills")
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Skill");
+
+                    b.Navigation("Zone");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.Accounts.Account", b =>
                 {
                     b.Navigation("Badges");
 
                     b.Navigation("Skills");
+
+                    b.Navigation("tasks");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.Badges.Badge", b =>
@@ -397,6 +544,15 @@ namespace xZoneAPI.Migrations
             modelBuilder.Entity("xZoneAPI.Models.Skills.Skill", b =>
                 {
                     b.Navigation("AccountsSkill");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Zones.Zone", b =>
+                {
+                    b.Navigation("Posts");
+
+                    b.Navigation("ZoneMembers");
+
+                    b.Navigation("ZoneSkills");
                 });
 #pragma warning restore 612, 618
         }

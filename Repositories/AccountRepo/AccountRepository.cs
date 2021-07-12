@@ -16,6 +16,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 namespace xZoneAPI.Repositories.AccountRepo
 {
     public class AccountRepository : IAccountRepo
@@ -36,9 +38,10 @@ namespace xZoneAPI.Repositories.AccountRepo
         }
         public Account AuthenticateUser(string email, string password)
         {
-            var account = db.Accounts.SingleOrDefault(x => x.Email == email && x.Password == password);
+            var account = db.Accounts.FirstOrDefault(x => x.Email == email && x.Password == password);
             if (account == null)
                 return null;
+            
             var TokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
