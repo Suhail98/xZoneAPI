@@ -9,6 +9,7 @@ using xZoneAPI.Repositories.Badges;
 
 namespace xZoneAPI.Controllers.Badges
 {
+    
     [Route("api/v{version:apiVersion}/Badge")]
     //[Route("api/[controller]")]
     [ApiController]

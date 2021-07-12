@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using xZoneAPI.badgesLogic;
 using xZoneAPI.Models.Badges;
 using xZoneAPI.Models.Ranks;
+using static xZoneAPI.Models.Accounts.Account;
 
 namespace xZoneAPI.Logic
 {
     public class AchievmentsNotifications
     {
-        public ICollection<Badge> badges;
-        public Rank newRank;
+        public List<AbstractBadge> badges;
+        public RankType newRank;
     }
 }

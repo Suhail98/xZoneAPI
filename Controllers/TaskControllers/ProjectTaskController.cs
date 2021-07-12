@@ -11,7 +11,7 @@ using xZoneAPI.Repositories.TaskRepo;
 
 namespace xZoneAPI.Controllers.TaskControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/ProjectTask")]
     [ApiController]
     public class ProjectTaskController : ControllerBase
     {

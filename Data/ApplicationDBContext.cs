@@ -20,12 +20,6 @@ namespace xZoneAPI.Data
         {
 
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AppTask>().ToTable("Tasks");
-            modelBuilder.Entity<ProjectTask>().ToTable("ProjectTasks");
-         
-        }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AppTask> appTasks { get; set; }
         public DbSet<Skill> Skills { get; set; }
@@ -37,6 +31,8 @@ namespace xZoneAPI.Data
         {
             modelBuilder.Entity<AccountSkill>().HasKey(ba => new { ba.AccountID, ba.SkillID });
             modelBuilder.Entity<AccountBadge>().HasKey(ba => new { ba.AccountID, ba.BadgeID });
+            modelBuilder.Entity<AppTask>().ToTable("Tasks");
+            modelBuilder.Entity<ProjectTask>().ToTable("ProjectTasks");
 
         }
 

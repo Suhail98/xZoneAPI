@@ -51,7 +51,7 @@ namespace xZoneAPI
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.AddCors();
             services.Configure<AppSettings>(appSettingsSection);
-            services.AddScoped<IAccountRepo, AccountRepo>();
+            services.AddScoped<IAccountRepo, AccountRepository>();
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<IAccountSkillRepo, SkillRepo>();
             services.AddScoped<IBadgeRepo, BadgeRepo>();

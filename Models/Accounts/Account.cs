@@ -33,11 +33,14 @@ namespace xZoneAPI.Models.Accounts
         public ICollection<AccountSkill> Skills { get; set; }
         public ICollection<AccountBadge> Badges { get; set; }
 
+        public enum RankType { Bronze, Silver, Gold, Plat }
+        /*
         [ForeignKey("Rank")]
-        public int? RankID { get; set; }
+        public int? RankID { get; set; }*/
         
-        public Rank Rank { get; set; }
-        //ICollection<Project> projects;
+        public RankType Rank { get; set; }
+        
+        ICollection<Project> projects;
      
     }
 }

@@ -6,11 +6,11 @@ using xZoneAPI.badgesLogic.badges;
 
 namespace xZoneAPI.badgesLogic
 {
-    public class BadgesSetFactory : IBadgesSetFactory
+    public class BadgesSetFactory 
     {
-        public List<IBadge> createFullAchievementSet()
+        public List<AbstractBadge> createFullAchievementSet()
         {
-            List<IBadge> achievements = new List<IBadge>();
+            List<AbstractBadge> achievements = new List<AbstractBadge>();
             achievements.Add(new FiveTasksBadge());
             return achievements;
         }

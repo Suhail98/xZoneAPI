@@ -34,7 +34,7 @@ namespace xZoneAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RankID")
+                    b.Property<int>("Rank")
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")
@@ -46,12 +46,10 @@ namespace xZoneAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RankID");
-
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountBadges", b =>
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountBadge", b =>
                 {
                     b.Property<int>("AccountID")
                         .HasColumnType("int");
@@ -78,7 +76,7 @@ namespace xZoneAPI.Migrations
 
                     b.HasIndex("SkillID");
 
-                    b.ToTable("AccountSkill");
+                    b.ToTable("AccountSkills");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.Badges.Badge", b =>
@@ -95,38 +93,6 @@ namespace xZoneAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Badges");
-                });
-
-            modelBuilder.Entity("xZoneAPI.Models.Ranks.Rank", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Ranks");
-                });
-
-            modelBuilder.Entity("xZoneAPI.Models.Skills.Skill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.ProjectModel.Project", b =>
@@ -185,6 +151,22 @@ namespace xZoneAPI.Migrations
                     b.ToTable("ProjectTasks");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.Ranks.Rank", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ranks");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.RoadmapModel.Roadmap", b =>
                 {
                     b.Property<int>("Id")
@@ -239,6 +221,22 @@ namespace xZoneAPI.Migrations
                     b.ToTable("Sections");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.Skills.Skill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Skills");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.TaskModel.AppTask", b =>
                 {
                     b.Property<int>("Id")
@@ -272,10 +270,45 @@ namespace xZoneAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("parentID");
-                    b.HasIndex("UserId");
-
                     b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountBadge", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
+                        .WithMany("Badges")
+                        .HasForeignKey("AccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Badges.Badge", "Badge")
+                        .WithMany("AccountBadges")
+                        .HasForeignKey("BadgeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Badge");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountSkill", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
+                        .WithMany("Skills")
+                        .HasForeignKey("AccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Skills.Skill", "Skill")
+                        .WithMany("AccountsSkill")
+                        .HasForeignKey("SkillID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Skill");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.ProjectModel.Project", b =>
@@ -328,62 +361,8 @@ namespace xZoneAPI.Migrations
                     b.Navigation("ParentProject");
                 });
 
-            modelBuilder.Entity("xZoneAPI.Models.Accounts.Account", b =>
-                {
-                    b.HasOne("xZoneAPI.Models.Ranks.Rank", "Rank")
-                        .WithMany()
-                        .HasForeignKey("RankID");
-
-                    b.Navigation("Rank");
-                });
-
-            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountBadges", b =>
-                {
-                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
-                        .WithMany("Badges")
-                        .HasForeignKey("AccountID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("xZoneAPI.Models.Badges.Badge", "Badge")
-                        .WithMany("AccountBadges")
-                        .HasForeignKey("BadgeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Badge");
-                });
-
-            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountSkill", b =>
-                {
-                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
-                        .WithMany("Skills")
-                        .HasForeignKey("AccountID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("xZoneAPI.Models.Skills.Skill", "Skill")
-                        .WithMany("AccountsSkill")
-                        .HasForeignKey("SkillID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Skill");
-                });
-
             modelBuilder.Entity("xZoneAPI.Models.TaskModel.AppTask", b =>
                 {
-                    b.HasOne("xZoneAPI.Models.Accounts.Account", "user")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("xZoneAPI.Models.TaskModel.AppTask", "Parent")
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -391,16 +370,6 @@ namespace xZoneAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("xZoneAPI.Models.ProjectModel.Project", b =>
-                {
-                    b.Navigation("Sections");
-                });
-
-                    b.Navigation("Parent");
-
-                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.Accounts.Account", b =>
@@ -415,12 +384,19 @@ namespace xZoneAPI.Migrations
                     b.Navigation("AccountBadges");
                 });
 
-            modelBuilder.Entity("xZoneAPI.Models.Skills.Skill", b =>
+            modelBuilder.Entity("xZoneAPI.Models.ProjectModel.Project", b =>
                 {
-                    b.Navigation("AccountsSkill");
+                    b.Navigation("Sections");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.SectionModel.Section", b =>
                 {
                     b.Navigation("ProjectTasks");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Skills.Skill", b =>
+                {
+                    b.Navigation("AccountsSkill");
                 });
 #pragma warning restore 612, 618
         }

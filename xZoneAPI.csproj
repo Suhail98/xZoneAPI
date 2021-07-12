@@ -11,6 +11,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Rank\**" />
+    <Compile Remove="Repositories\Badge\**" />
+    <Compile Remove="Repositories\Rank\**" />
+    <Compile Remove="Repositories\Skill\**" />
+    <Content Remove="Models\Rank\**" />
+    <Content Remove="Repositories\Badge\**" />
+    <Content Remove="Repositories\Rank\**" />
+    <Content Remove="Repositories\Skill\**" />
+    <EmbeddedResource Remove="Models\Rank\**" />
+    <EmbeddedResource Remove="Repositories\Badge\**" />
+    <EmbeddedResource Remove="Repositories\Rank\**" />
+    <EmbeddedResource Remove="Repositories\Skill\**" />
+    <None Remove="Models\Rank\**" />
+    <None Remove="Repositories\Badge\**" />
+    <None Remove="Repositories\Rank\**" />
+    <None Remove="Repositories\Skill\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Versioning.ApiExplorer" Version="4.1.0" />
@@ -35,10 +54,6 @@
     <Folder Include="Controllers\ProjectControllers\" />
     <Folder Include="Controllers\Rank\" />
     <Folder Include="Controllers\Skill\" />
-    <Folder Include="Models\Rank\" />
-    <Folder Include="Repositories\Badge\" />
-    <Folder Include="Repositories\Rank\" />
-    <Folder Include="Repositories\Skill\" />
   </ItemGroup>
 
 

@@ -9,6 +9,7 @@ using xZoneAPI.Repositories.Skills;
 
 namespace xZoneAPI.Controllers.Skills
 {
+    
     [Route("api/v{version:apiVersion}/Skill")]
     //[Route("api/[controller]")]
     [ApiController]

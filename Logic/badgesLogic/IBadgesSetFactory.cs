@@ -4,6 +4,6 @@ namespace xZoneAPI.badgesLogic
 {
     public interface IBadgesSetFactory
     {
-        List<IBadge> createFullAchievementSet();
+        List<AbstractBadge> createFullAchievementSet();
     }
 }

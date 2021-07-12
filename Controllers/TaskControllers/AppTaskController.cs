@@ -87,7 +87,9 @@ namespace xZoneAPI.Controllers.TaskControllers
             
             return NoContent();
         }
-        public IActionResult FinishAppTask(int userID, int TaskId)
+
+        [HttpPost("{TaskId:int}/{UserId:int}")]
+        public IActionResult FinishAppTask(int TaskId, int userID)
         {
             var xTask = TaskRepo.GetTask(TaskId);
             if (!TaskRepo.IsTaskExists(xTask))
@@ -104,7 +106,7 @@ namespace xZoneAPI.Controllers.TaskControllers
             AchievmentsNotifications notifications = gamificationLogic.checkForNewAchievements(userID);
             return Ok(notifications);
         }
-
+        
 
 
     }

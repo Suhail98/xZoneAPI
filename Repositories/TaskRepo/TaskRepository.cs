@@ -15,6 +15,7 @@ namespace xZoneAPI.Repositories.TaskRepo
         {
             db = _db;
         }
+        
         public bool AddTask(AppTask NewTak)
         {
             db.Add(NewTak);
@@ -25,6 +26,11 @@ namespace xZoneAPI.Repositories.TaskRepo
         {
             db.Remove(task);
             return Save();
+        }
+
+        public int GetFinishedTasks(int userId)
+        {
+            return 0;
         }
 
         public AppTask GetTask(int TaskId)

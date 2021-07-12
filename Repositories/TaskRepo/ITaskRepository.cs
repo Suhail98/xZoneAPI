@@ -9,6 +9,7 @@ namespace xZoneAPI.Repositories.TaskRepo
     public interface ITaskRepository
     {
         ICollection<AppTask> GetTasks(int userId);
+        int GetFinishedTasks(int userId);
         AppTask GetTask(int TaskId);
         AppTask GetTask(string TaskName);
         //public AppTask AddTask(int UserId, TaskDto _TaskDto);
