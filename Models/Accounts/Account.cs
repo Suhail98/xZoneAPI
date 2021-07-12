@@ -34,9 +34,9 @@ namespace xZoneAPI.Models.Accounts
         public ICollection<AccountBadge> Badges { get; set; }
 
         public enum RankType { Bronze, Silver, Gold, Plat }
-        /*
-        [ForeignKey("Rank")]
-        public int? RankID { get; set; }*/
+        
+       // [ForeignKey("Rank")]
+        //public int? RankID { get; set; }
         
         public RankType Rank { get; set; }
         
