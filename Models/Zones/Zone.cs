@@ -17,8 +17,8 @@ namespace xZoneAPI.Models.Zones
         public ICollection<Post> Posts {get; set;}
         public ICollection<ZoneMember> ZoneMembers { get; set; }
         public enum PrivacyType{ Private, Public }
-        public PrivacyType Privacy { get; set; }
+        public PrivacyType Privacy { get; set; }  
         public ICollection<ZoneSkill> ZoneSkills { get; set; }
-        public string JoinCode{get; set;}
+        public string JoinCode { get; set; } = "";
 }
 }
