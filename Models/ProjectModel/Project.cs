@@ -24,7 +24,5 @@ namespace xZoneAPI.Models.ProjectModel
         
         public Account Owner { get; set; }
 
-
-
     }
 }

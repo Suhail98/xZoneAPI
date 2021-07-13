@@ -421,7 +421,7 @@ namespace xZoneAPI.Migrations
             modelBuilder.Entity("xZoneAPI.Models.ProjectModel.Project", b =>
                 {
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "Owner")
-                        .WithMany()
+                        .WithMany("Projects")
                         .HasForeignKey("OwnerID");
 
                     b.Navigation("Owner");
@@ -441,7 +441,7 @@ namespace xZoneAPI.Migrations
             modelBuilder.Entity("xZoneAPI.Models.RoadmapModel.Roadmap", b =>
                 {
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "Owner")
-                        .WithMany()
+                        .WithMany("Roadmaps")
                         .HasForeignKey("OwnerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -471,7 +471,7 @@ namespace xZoneAPI.Migrations
             modelBuilder.Entity("xZoneAPI.Models.TaskModel.AppTask", b =>
                 {
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "User")
-                        .WithMany("tasks")
+                        .WithMany("Tasks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -482,7 +482,7 @@ namespace xZoneAPI.Migrations
             modelBuilder.Entity("xZoneAPI.Models.Zones.ZoneMember", b =>
                 {
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
-                        .WithMany()
+                        .WithMany("Zones")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -521,9 +521,15 @@ namespace xZoneAPI.Migrations
                 {
                     b.Navigation("Badges");
 
+                    b.Navigation("Projects");
+
+                    b.Navigation("Roadmaps");
+
                     b.Navigation("Skills");
 
-                    b.Navigation("tasks");
+                    b.Navigation("Tasks");
+
+                    b.Navigation("Zones");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.Badges.Badge", b =>

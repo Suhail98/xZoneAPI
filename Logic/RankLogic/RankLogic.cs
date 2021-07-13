@@ -17,7 +17,8 @@ namespace xZoneAPI.Logic.RankLogic
         }
         public RankType getNewRank(int userId)
         {
-           // RankType OldRank = _accountRepo.FindAccountById(userId).Rank;
+            RankType OldRank = _accountRepo.FindAccountById(userId).Rank;
+
             return 0;
 
         }

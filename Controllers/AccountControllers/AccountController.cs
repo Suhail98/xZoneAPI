@@ -62,6 +62,17 @@ namespace xZoneAPI.Controllers.AccountControllers
                 return NotFound();
             return Ok(account);
         }
+        [HttpGet("profile/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetProfile(int id)
+        {
+            Account account = repo.getProfile(id);
+            if (account == null)
+                return NotFound();
+            ProfileDto profile = mapper.Map<ProfileDto>(account);
+            return Ok(profile);
+        }
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

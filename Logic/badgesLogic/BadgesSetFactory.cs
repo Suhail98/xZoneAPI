@@ -11,7 +11,7 @@ namespace xZoneAPI.badgesLogic
         public List<AbstractBadge> createFullAchievementSet()
         {
             List<AbstractBadge> achievements = new List<AbstractBadge>();
-            achievements.Add(new FiveTasksBadge());
+            achievements.Add(new FiveTasksBadge(TaskRepository));
             return achievements;
         }
     }

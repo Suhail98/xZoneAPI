@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using xZoneAPI.badgesLogic;
 using xZoneAPI.Logic.RankLogic;
+using xZoneAPI.Repositories.AccountBadges;
 using xZoneAPI.Repositories.Ranks;
 
 namespace xZoneAPI.Logic
@@ -13,11 +14,13 @@ namespace xZoneAPI.Logic
         
         List<AbstractBadge> badges;
         IRankLogic rankLogic;
+        IAccountBadgeRepo accountBadgeRepo;
 
-        public GamificationLogic(IBadgesSetFactory factory, IRankLogic rankLogic)
+        public GamificationLogic(IBadgesSetFactory factory, IRankLogic rankLogic, IAccountBadgeRepo accountBadgeRepo)
         {
             badges = factory.createFullAchievementSet();
             this.rankLogic = rankLogic;
+            this.accountBadgeRepo = accountBadgeRepo;
         }
         public AchievmentsNotifications checkForNewAchievements(int userID)
         {
@@ -32,7 +35,8 @@ namespace xZoneAPI.Logic
             foreach(AbstractBadge badge in badges)
             {
                 if (badge.evaluate(userID))
-                    badges.Add(badge);
+                { badges.Add(badge);}
+                    
             }
             return badges;
         }

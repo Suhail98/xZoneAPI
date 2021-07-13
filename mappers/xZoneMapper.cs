@@ -16,13 +16,13 @@ namespace xZoneAPI.mappers
         public xZoneMapper()
         {
             CreateMap<Account, AccountRegisterInDto>().ReverseMap();
+            CreateMap<Account, ProfileDto>().ReverseMap();
             CreateMap<AppTask, TaskDto>().ReverseMap();
             CreateMap<Project, ProjectDto>().ReverseMap();
             CreateMap<Project, UpdateProjectDto>().ReverseMap();
             CreateMap<Section, SectionDto>().ReverseMap();
             CreateMap<ProjectTask, ProjectTaskDto>().ReverseMap();
             CreateMap<Roadmap, RoadmapDto>().ReverseMap();
-
         }
     }
 }

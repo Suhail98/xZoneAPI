@@ -29,6 +29,7 @@ namespace xZoneAPI.Data
             modelBuilder.Entity<ZoneMember>().HasKey(ba => new { ba.ZoneId, ba.AccountId });
             modelBuilder.Entity<ZoneSkill>().HasKey(ba => new { ba.ZoneId, ba.SkillId });
             modelBuilder.Entity<AppTask>().ToTable("Tasks");
+            modelBuilder.Entity<AccountSkill>().ToTable("AccountSkills");
             modelBuilder.Entity<ProjectTask>().ToTable("ProjectTasks");
 
         }
