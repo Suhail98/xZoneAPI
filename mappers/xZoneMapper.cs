@@ -8,6 +8,7 @@ using xZoneAPI.Models.ProjectTaskModel;
 using xZoneAPI.Models.RoadmapModel;
 using xZoneAPI.Models.SectionModel;
 using xZoneAPI.Models.TaskModel;
+using xZoneAPI.Models.Zones;
 
 namespace xZoneAPI.mappers
 {
@@ -22,6 +23,7 @@ namespace xZoneAPI.mappers
             CreateMap<Section, SectionDto>().ReverseMap();
             CreateMap<ProjectTask, ProjectTaskDto>().ReverseMap();
             CreateMap<Roadmap, RoadmapDto>().ReverseMap();
+            CreateMap<Zone, ZoneDto>().ReverseMap();
 
         }
     }

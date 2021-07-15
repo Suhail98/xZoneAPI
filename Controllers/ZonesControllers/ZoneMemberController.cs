@@ -10,7 +10,7 @@ using xZoneAPI.Repositories.ZoneRepo;
 
 namespace xZoneAPI.Controllers.ZonesControllers
 {
-    [Route("api/v{version:apiVersion=1}/zonemember")]
+    [Route("api/v{version:apiVersion}/ZoneMember")]
     [ApiController]
     public class ZoneMemberController : ControllerBase
     {
@@ -24,8 +24,8 @@ namespace xZoneAPI.Controllers.ZonesControllers
             ZoneMemberRepo = zoneMemberRepository;
             mapper = _mapper;
         }
-        [HttpPost]
-        public IActionResult JoinZone(ZoneMember zoneMember, string joiningCode = "")
+        [HttpPost("{joiningCode}")]
+        public IActionResult JoinZone([FromBody]ZoneMember zoneMember, string joiningCode = "")
         {
             int zoneId = zoneMember.ZoneId;
             Zone zone = ZoneRepo.FindZoneById(zoneId);
@@ -47,8 +47,8 @@ namespace xZoneAPI.Controllers.ZonesControllers
             return Ok();
         } 
 
-        [HttpDelete("details")]
-        public IActionResult LeaveZone(ZoneMember zoneMember)
+        [HttpDelete]
+        public IActionResult LeaveZone([FromBody]ZoneMember zoneMember)
         {
             if (zoneMember == null)
             {
@@ -64,8 +64,8 @@ namespace xZoneAPI.Controllers.ZonesControllers
             return NoContent();
         }
 
-        [HttpPatch("details")]
-        public IActionResult UpdateZoneMember(ZoneMember zoneMember)
+        [HttpPatch]
+        public IActionResult UpdateZoneMember([FromBody]ZoneMember zoneMember)
         {
             if ( zoneMember == null)
             {

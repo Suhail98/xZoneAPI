@@ -32,6 +32,7 @@ using xZoneAPI.Repositories.SectionRepo;
 using xZoneAPI.Repositories.TaskRepo;
 using xZoneAPI.Repositories.ProjectRepo;
 using xZoneAPI.Repositories.RoadmapRepo;
+using xZoneAPI.Repositories.ZoneRepo;
 
 namespace xZoneAPI
 {
@@ -62,6 +63,9 @@ namespace xZoneAPI
             services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IRoadmapRepository, RoadmapRepository>();
+            services.AddScoped<IZoneRepository, ZoneRepository>();
+            services.AddScoped<IZoneMembersRepository, ZoneMembersRepository>();
+            services.AddScoped<IZoneSkillRepository, ZoneSkillRepository>();
             services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {

@@ -50,5 +50,12 @@ namespace xZoneAPI.Repositories.ZoneRepo
         {
             return db.SaveChanges() >= 0 ;
         }
+
+        public ZoneMember GetZoneMember(int AccountMemberId)
+        {
+            ZoneMember zoneMember = db.ZoneMembers.FirstOrDefault(zm => zm.AccountId == AccountMemberId);
+            return zoneMember;
+        }
+
     }
 }

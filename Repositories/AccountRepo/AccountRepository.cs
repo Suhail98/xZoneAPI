@@ -28,7 +28,6 @@ namespace xZoneAPI.Repositories.AccountRepo
         {
             db = _db;
             appSettings = _appSettings.Value;
-
         }
         public Account register(Account account)
         {

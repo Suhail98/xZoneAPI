@@ -14,9 +14,10 @@ namespace xZoneAPI.Repositories.ZoneRepo
         public bool IsAdmin(ZoneMember Memeber);
         public ICollection<ZoneMember> GetAllZoneMembers(int ZoneId);
         public bool Save();
+        ZoneMember GetZoneMember(int AccountMemberId);
 
 
-//        public bool RemovePost(ZoneMember Member, int PostId);
+        //        public bool RemovePost(ZoneMember Member, int PostId);
 
 
 
