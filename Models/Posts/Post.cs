@@ -21,6 +21,5 @@ namespace xZoneAPI.Models.Posts
         public int ZoneId { get; set; }
         public Zone Zone { get; set; }
 
-        
     }
 }

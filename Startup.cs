@@ -36,6 +36,7 @@ using xZoneAPI.badgesLogic;
 using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.Repositories.AccountBadges;
 using xZoneAPI.Repositories.ZoneRepo;
+using xZoneAPI.Repositories.PostRepo;
 
 namespace xZoneAPI
 {
@@ -72,6 +73,7 @@ namespace xZoneAPI
             services.AddScoped<IZoneRepository, ZoneRepository>();
             services.AddScoped<IZoneMembersRepository, ZoneMembersRepository>();
             services.AddScoped<IZoneSkillRepository, ZoneSkillRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
             services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using xZoneAPI.Models.Accounts;
+using xZoneAPI.Models.Posts;
 using xZoneAPI.Models.ProjectModel;
 using xZoneAPI.Models.ProjectTaskModel;
 using xZoneAPI.Models.RoadmapModel;
@@ -27,6 +28,7 @@ namespace xZoneAPI.mappers
             CreateMap<ProjectTask, ProjectTaskDto>().ReverseMap();
             CreateMap<Roadmap, RoadmapDto>().ReverseMap();
             CreateMap<Zone, ZoneDto>().ReverseMap();
+            CreateMap<Post, PostDto>().ReverseMap();
 
         }
     }
