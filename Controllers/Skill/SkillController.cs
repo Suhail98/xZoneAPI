@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using xZoneAPI.Models.Skills;
+using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.Repositories.Skills;
 
 namespace xZoneAPI.Controllers.Skills
@@ -15,9 +16,9 @@ namespace xZoneAPI.Controllers.Skills
     [ApiController]
     public class SkillController : ControllerBase
     {
-        IAccountSkillRepo repo;
+        ISkillRepo repo;
         private readonly IMapper mapper;
-        public SkillController(IAccountSkillRepo _repo, IMapper _mapper)
+        public SkillController(ISkillRepo _repo, IMapper _mapper)
         {
             repo = _repo;
             mapper = _mapper;
@@ -27,14 +28,15 @@ namespace xZoneAPI.Controllers.Skills
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult AddSkill([FromBody] Skill Skill)
+        public IActionResult AddSkill([FromBody] SkillDto Skill)
         {
             if (Skill == null)
             {
                 return BadRequest(ModelState);
             }
+            Skill xSkill = mapper.Map<Skill>(Skill);
             // TODO verify whether tasks exists or not            
-            var OperationStatus = repo.AddSkill(Skill);
+            var OperationStatus = repo.AddSkill(xSkill);
             if (!OperationStatus)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {Skill.Name} Skill");
@@ -97,7 +99,7 @@ namespace xZoneAPI.Controllers.Skills
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public IActionResult UpdateSkill(int id, [FromBody] Skill Skill)
+        public IActionResult UpdateSkill(int id, [FromBody] SkillDto Skill)
         {
             if (Skill == null)
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using xZoneAPI.Models.Accounts;
-namespace xZoneAPI.Repositories.AccountSkills
+namespace xZoneAPI.Repositories.AccountRepo
 {
     public interface IAccountSkillRepo
     {

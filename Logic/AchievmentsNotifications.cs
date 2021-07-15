@@ -11,7 +11,7 @@ namespace xZoneAPI.Logic
 {
     public class AchievmentsNotifications
     {
-        public List<AbstractBadge> badges;
-        public RankType newRank;
+        public List<int> badges;
+        public RankType? newRank;
     }
 }

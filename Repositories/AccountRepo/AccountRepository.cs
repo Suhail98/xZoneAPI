@@ -28,7 +28,6 @@ namespace xZoneAPI.Repositories.AccountRepo
         {
             db = _db;
             appSettings = _appSettings.Value;
-
         }
         public Account register(Account account)
         {
@@ -93,6 +92,10 @@ namespace xZoneAPI.Repositories.AccountRepo
             return db.SaveChanges() >= 0;
         }
 
-
+        public Account GetAccountWithItsBadges(int accountId)
+        {
+            Account account = db.Accounts.Include(u => u.Badges).FirstOrDefault(x => x.Id == accountId);
+            return account;
+        }
     }
 }

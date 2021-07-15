@@ -10,6 +10,12 @@ namespace xZoneAPI.Models.Accounts
 {
     public class AccountBadge
     {
+        public AccountBadge(int accountID, int badgeID)
+        {
+            AccountID = accountID;
+            BadgeID = badgeID;
+        }
+
         [ForeignKey("Account")]
         public int AccountID {get;set;}
         [ForeignKey("Badge")]
@@ -17,5 +23,6 @@ namespace xZoneAPI.Models.Accounts
 
         public Account Account { get; set; }
         public Badge Badge { get; set; }
+        
     }
 }

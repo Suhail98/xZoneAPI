@@ -7,6 +7,7 @@ using xZoneAPI.Models.ProjectModel;
 using xZoneAPI.Models.ProjectTaskModel;
 using xZoneAPI.Models.RoadmapModel;
 using xZoneAPI.Models.SectionModel;
+using xZoneAPI.Models.Skills;
 using xZoneAPI.Models.TaskModel;
 
 namespace xZoneAPI.mappers
@@ -18,6 +19,7 @@ namespace xZoneAPI.mappers
             CreateMap<Account, AccountRegisterInDto>().ReverseMap();
             CreateMap<Account, ProfileDto>().ReverseMap();
             CreateMap<AppTask, TaskDto>().ReverseMap();
+            CreateMap<Skill, SkillDto>().ReverseMap();
             CreateMap<Project, ProjectDto>().ReverseMap();
             CreateMap<Project, UpdateProjectDto>().ReverseMap();
             CreateMap<Section, SectionDto>().ReverseMap();

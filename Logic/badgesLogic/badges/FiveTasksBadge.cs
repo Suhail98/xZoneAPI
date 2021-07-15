@@ -8,16 +8,16 @@ namespace xZoneAPI.badgesLogic.badges
 {
     public class FiveTasksBadge : AbstractBadge
     {
-        TaskRepository _taskRepo;
-        FiveTasksBadge(ITaskRepository taskRepo)
+        ITaskRepository _taskRepo;
+        public FiveTasksBadge(ITaskRepository taskRepo)
         {
             _taskRepo = taskRepo;
-            Id = 1;
+            Id = 2;
         }
         public override bool evaluate(int userID)
         {
             int numOfFinishedTasks = _taskRepo.GetFinishedTasks(userID);
-            return numOfFinishedTasks >= 5 ? true : false; 
+            return numOfFinishedTasks >= 2 ? true : false; 
         }
 
        
