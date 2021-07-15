@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using xZoneAPI.Models.Accounts;
-using xZoneAPI.Repositories.AccountSkills;
+using xZoneAPI.Repositories.AccountRepo;
+using xZoneAPI.Repositories.Skills;
 
 /// <summary>
 ///  A class that represents ...
@@ -70,7 +71,7 @@ namespace xZoneAPI.Controllers.AccountSkillControllers
                 return NotFound();
             return Ok(AccountSkills);
         }
-        [HttpDelete("{accountId:int}/{skillID:int}")]
+        [HttpDelete("{accountId:int}/{SkillId:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

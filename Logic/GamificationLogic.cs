@@ -3,38 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using xZoneAPI.badgesLogic;
-using xZoneAPI.Logic.RankLogic;
+using xZoneAPI.Models.Accounts;
+using xZoneAPI.Repositories.AccountBadges;
+using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.Repositories.Ranks;
+using xZoneAPI.Repositories.TaskRepo;
+using static xZoneAPI.Models.Accounts.Account;
 
 namespace xZoneAPI.Logic
 {
-    public class GamificationLogic
+    public class GamificationLogic : IGamificationLogic
     {
-        
-        List<AbstractBadge> badges;
-        IRankLogic rankLogic;
 
-        public GamificationLogic(IBadgesSetFactory factory, IRankLogic rankLogic)
+        List<AbstractBadge> badges;
+        IAccountRepo accountRepo;
+        IAccountBadgeRepo accountBadgeRepo;
+        ITaskRepository taskRepo;
+        Account account;
+
+        public GamificationLogic(IBadgesSetFactory factory, IAccountBadgeRepo accountBadgeRepo, ITaskRepository taskRepo, IAccountRepo accountRepo)
         {
             badges = factory.createFullAchievementSet();
-            this.rankLogic = rankLogic;
+            this.accountBadgeRepo = accountBadgeRepo;
+            this.taskRepo = taskRepo;
+            this.accountRepo = accountRepo;
         }
         public AchievmentsNotifications checkForNewAchievements(int userID)
         {
             AchievmentsNotifications achievmentsNotifications = new AchievmentsNotifications();
+            account = accountRepo.GetAccountWithItsBadges(userID);
             achievmentsNotifications.badges = getNewBadges(userID);
-            achievmentsNotifications.newRank = rankLogic.getNewRank(userID);
+            achievmentsNotifications.newRank = getNewRank(userID);
             return achievmentsNotifications;
         }
-        private List<AbstractBadge> getNewBadges(int userID)
+
+        private RankType? getNewRank(int userID)
         {
-            List<AbstractBadge> badges = new List<AbstractBadge>();
-            foreach(AbstractBadge badge in badges)
+            int numOfActiveDays = taskRepo.GetActiveDays(userID);
+            RankType newRank = (RankType)(numOfActiveDays / 2);
+            return account.Rank == newRank ? null : newRank;
+        }
+
+        private List<int> getNewBadges(int userID)
+        {
+            List<int> badgesId = new List<int>();
+            foreach (AbstractBadge badge in badges)
             {
-                if (badge.evaluate(userID))
-                    badges.Add(badge);
+                if (account.Badges.SingleOrDefault(u => u.BadgeID == badge.Id) == null &&
+                    badge.evaluate(userID))
+                {
+                    badgesId.Add(badge.Id);
+                    AccountBadge accountBadge = new AccountBadge(userID, badge.Id);
+                    accountBadgeRepo.AddAccountBadge(accountBadge);
+                }
+
             }
-            return badges;
+            return badgesId;
         }
     }
 }

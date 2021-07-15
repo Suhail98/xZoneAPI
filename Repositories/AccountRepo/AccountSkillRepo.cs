@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using xZoneAPI.Data;
 using xZoneAPI.Models.Accounts;
-using xZoneAPI.Repositories.AccountSkills;
 
 namespace xZoneAPI.Repositories.AccountRepo
 {

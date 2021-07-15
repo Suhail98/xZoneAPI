@@ -7,8 +7,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using xZoneAPI.Models.Skills;
 using xZoneAPI.Models.Ranks;
 using xZoneAPI.Models.Badges;
-using Microsoft.CodeAnalysis;
+//using Microsoft.CodeAnalysis;
 using xZoneAPI.Models.TaskModel;
+using xZoneAPI.Models.ProjectModel;
+using xZoneAPI.Models.RoadmapModel;
+using xZoneAPI.Models.Zones;
 /// <summary>
 ///  A class that represents ...
 /// 
@@ -41,9 +44,10 @@ namespace xZoneAPI.Models.Accounts
         
         public RankType Rank { get; set; }
 
-        public ICollection<AppTask> tasks { get; set; }
-        public ICollection<Project> projects;
-       
-     
+        public ICollection<AppTask> Tasks { get; set; }
+        public ICollection<Project> Projects { get; set; }
+        public ICollection<Roadmap> Roadmaps { get; set; }
+        public ICollection<ZoneMember> Zones { get; set; }
+
     }
 }

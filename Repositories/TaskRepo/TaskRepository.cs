@@ -18,21 +18,27 @@ namespace xZoneAPI.Repositories.TaskRepo
         
         public bool AddTask(AppTask NewTak)
         {
-            db.Add(NewTak);
+            db.appTasks.Add(NewTak);
             return Save();
         }
 
         public bool DeleteTask(AppTask task)
         {
-            db.Remove(task);
+            db.appTasks.Remove(task);
             return Save();
         }
 
         public int GetFinishedTasks(int userId)
         {
-            return 0;
+            int count = db.appTasks.Count(u => u.CompleteDate != null);
+            return count;
         }
+        public int GetActiveDays(int userId)
+        {
 
+            int count = db.appTasks.Select(u => u.CompleteDate.Value.Day).Distinct().Count();
+            return count;
+        }
         public AppTask GetTask(int TaskId)
         {
             return db.appTasks.FirstOrDefault(a => a.Id == TaskId);

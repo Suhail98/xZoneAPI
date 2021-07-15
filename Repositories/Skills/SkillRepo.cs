@@ -7,7 +7,7 @@ using xZoneAPI.Models.Skills;
 
 namespace xZoneAPI.Repositories.Skills
 {
-    public class SkillRepo : IAccountSkillRepo
+    public class SkillRepo : ISkillRepo
     {
         private readonly ApplicationDBContext _db;
         public SkillRepo(ApplicationDBContext db)

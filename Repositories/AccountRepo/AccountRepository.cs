@@ -37,7 +37,7 @@ namespace xZoneAPI.Repositories.AccountRepo
         }
         public Account AuthenticateUser(string email, string password)
         {
-            var account = db.Accounts.FirstOrDefault(x => x.Email == email && x.Password == password);
+            var account = db.Accounts.Include(u => u.Projects).Include(u => u.Tasks).FirstOrDefault(x => x.Email == email && x.Password == password);
             if (account == null)
                 return null;
             
@@ -82,12 +82,20 @@ namespace xZoneAPI.Repositories.AccountRepo
             db.Accounts.Update(acount);
             return Save();
         }
-
+        public Account getProfile(int AccountId)
+        {
+            Account account = db.Accounts.Include(u => u.Roadmaps).Include(u => u.Zones).Include(u => u.Badges).Include(u => u.Skills).FirstOrDefault(x => x.Id == AccountId);
+            return account;
+        }
         public bool Save()
         {
             return db.SaveChanges() >= 0;
         }
 
-
+        public Account GetAccountWithItsBadges(int accountId)
+        {
+            Account account = db.Accounts.Include(u => u.Badges).FirstOrDefault(x => x.Id == accountId);
+            return account;
+        }
     }
 }

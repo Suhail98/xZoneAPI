@@ -22,7 +22,6 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using xZoneAPI.Data;
 using Microsoft.EntityFrameworkCore;
-using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.mappers;
 using xZoneAPI.Repositories.TaskRepo;
 using xZoneAPI.Repositories.Skills;
@@ -32,6 +31,10 @@ using xZoneAPI.Repositories.SectionRepo;
 using xZoneAPI.Repositories.TaskRepo;
 using xZoneAPI.Repositories.ProjectRepo;
 using xZoneAPI.Repositories.RoadmapRepo;
+using xZoneAPI.Logic;
+using xZoneAPI.badgesLogic;
+using xZoneAPI.Repositories.AccountRepo;
+using xZoneAPI.Repositories.AccountBadges;
 using xZoneAPI.Repositories.ZoneRepo;
 
 namespace xZoneAPI
@@ -54,15 +57,18 @@ namespace xZoneAPI
             services.Configure<AppSettings>(appSettingsSection);
             services.AddScoped<IAccountRepo, AccountRepository>();
             services.AddScoped<ITaskRepository, TaskRepository>();
-            services.AddScoped<IAccountSkillRepo, SkillRepo>();
+            services.AddScoped<IAccountSkillRepo, AccountSkillRepo>();
+            services.AddScoped<IAccountBadgeRepo, AccountBadgeRepo>();
             services.AddScoped<IBadgeRepo, BadgeRepo>();
             services.AddScoped<IRankRepo, RankRepo>();
+            services.AddScoped<ISkillRepo, SkillRepo>();
             services.AddScoped<ISectionRepository, SectionRepository>();
-            services.AddScoped<IAccountRepo, AccountRepository>();
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IRoadmapRepository, RoadmapRepository>();
+            services.AddScoped<IBadgesSetFactory, BadgesSetFactory>();
+            services.AddScoped<IGamificationLogic, GamificationLogic>();
             services.AddScoped<IZoneRepository, ZoneRepository>();
             services.AddScoped<IZoneMembersRepository, ZoneMembersRepository>();
             services.AddScoped<IZoneSkillRepository, ZoneSkillRepository>();
@@ -73,6 +79,9 @@ namespace xZoneAPI
                 options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.ReportApiVersions = true;
             });
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen();

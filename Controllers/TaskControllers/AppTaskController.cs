@@ -17,11 +17,12 @@ namespace xZoneAPI.Controllers.TaskControllers
     {
         private ITaskRepository TaskRepo;
         private readonly IMapper mapper;
-        private readonly GamificationLogic gamificationLogic;
-        public AppTaskController(ITaskRepository _TaskRepo, IMapper _mapper)
+        private readonly IGamificationLogic gamificationLogic;
+        public AppTaskController(ITaskRepository _TaskRepo, IMapper _mapper, IGamificationLogic gamificationLogic)
         {
             TaskRepo = _TaskRepo;
             mapper = _mapper;
+            this.gamificationLogic = gamificationLogic;
         }
 
         [HttpGet] 
@@ -46,28 +47,27 @@ namespace xZoneAPI.Controllers.TaskControllers
         }
 
         [HttpPost]
-        public IActionResult AddAppTask([FromBody]TaskDto taskDto)
+        public IActionResult AddAppTask([FromBody] TaskDto taskDto)
         {
-            if( taskDto == null)
+            if (taskDto == null)
             {
                 return BadRequest(ModelState);
             }
             var xTask = mapper.Map<AppTask>(taskDto);
             var checkExisting = TaskRepo.IsTaskExists(xTask);
-            if (checkExisting )
+            if (checkExisting)
             {
                 ModelState.AddModelError("", "You have task with same id");
                 return BadRequest(ModelState);
             }
             var OperationStatus = TaskRepo.AddTask(xTask);
-            if ( !OperationStatus )
+            if (!OperationStatus)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {taskDto.Name} task");
                 return StatusCode(500, ModelState);
             }
             return Ok();
         }
-
         [HttpDelete("{TaskId:int}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -87,12 +87,11 @@ namespace xZoneAPI.Controllers.TaskControllers
             
             return NoContent();
         }
-
-        [HttpPost("{TaskId:int}/{UserId:int}")]
-        public IActionResult FinishAppTask(int TaskId, int userID)
+        [HttpPost("{taskId:int}/{userId:int}")]
+        public IActionResult FinishAppTask(int taskId, int userId)
         {
-            var xTask = TaskRepo.GetTask(TaskId);
-            if (!TaskRepo.IsTaskExists(xTask))
+            var xTask = TaskRepo.GetTask(taskId);
+            if (xTask == null)
             {
                 return NotFound();
             }
@@ -103,7 +102,7 @@ namespace xZoneAPI.Controllers.TaskControllers
                 ModelState.AddModelError("", $"Something wrong in updating {xTask.Name} task");
                 return StatusCode(500, ModelState);
             }
-            AchievmentsNotifications notifications = gamificationLogic.checkForNewAchievements(userID);
+            AchievmentsNotifications notifications = gamificationLogic.checkForNewAchievements(userId);
             return Ok(notifications);
         }
         

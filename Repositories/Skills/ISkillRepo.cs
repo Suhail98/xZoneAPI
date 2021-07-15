@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using xZoneAPI.Models.Skills;
 namespace xZoneAPI.Repositories.Skills
 {
-    public interface IAccountSkillRepo
+    public interface ISkillRepo
     {
         bool AddSkill(Skill Skill);
         Skill FindSkillById(int Id);
