@@ -9,7 +9,7 @@ namespace xZoneAPI.Repositories.ProjectRepo
 {
     public interface IProjectRepository
     {
-        bool addProject(Project Project);
+        Project addProject(Project Project);
         Project FindProjectById(int Id);
         ICollection<Project> GetAllProjects();
         bool DeleteProject(Project Project);

@@ -62,12 +62,12 @@ namespace xZoneAPI.Controllers.SectionControllers
             }
             var xSection = mapper.Map<Section>(section);
             var OperationStatus = SectionRepo.addSection(xSection);
-            if (!OperationStatus)
+            if (OperationStatus == null)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {xSection.Name} Section");
                 return StatusCode(500, ModelState);
             }
-            return Ok();
+            return Ok(OperationStatus);
         }
 
         [HttpDelete("{SectionId:int}")]

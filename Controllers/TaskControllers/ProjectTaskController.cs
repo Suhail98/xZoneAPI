@@ -60,12 +60,12 @@ namespace xZoneAPI.Controllers.TaskControllers
                 return BadRequest(ModelState);
             }
             var OperationStatus = TaskRepo.AddTask(xTask);
-            if (!OperationStatus)
+            if (OperationStatus == null)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {taskDto.Name} task");
                 return StatusCode(500, ModelState);
             }
-            return Ok();
+            return Ok(OperationStatus);
         }
 
         [HttpDelete("{TaskId:int}")]

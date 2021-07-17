@@ -57,12 +57,12 @@ namespace xZoneAPI.Controllers.ProjectControllers
             }
             var xProject = mapper.Map<Project>(Project);
             var OperationStatus = ProjectRepo.addProject(xProject);
-            if (!OperationStatus)
+            if (OperationStatus == null)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {Project.Name} Project");
                 return StatusCode(500, ModelState);
             }
-            return Ok();
+            return Ok(xProject);
         }
 
         [HttpDelete("{ProjectId:int}")]

@@ -16,10 +16,11 @@ namespace xZoneAPI.Repositories.TaskRepo
         {
             db = _db;
         }
-        public bool AddTask(ProjectTask NewTak)
+        public ProjectTask AddTask(ProjectTask NewTak)
         {
             db.Add(NewTak);
-            return Save();
+            Save();
+            return NewTak;
         }
 
         public bool DeleteTask(ProjectTask task)

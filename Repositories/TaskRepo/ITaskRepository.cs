@@ -14,7 +14,7 @@ namespace xZoneAPI.Repositories.TaskRepo
         AppTask GetTask(int TaskId);
         AppTask GetTask(string TaskName);
         //public AppTask AddTask(int UserId, TaskDto _TaskDto);
-        public bool AddTask(AppTask task); // user add
+        public AppTask AddTask(AppTask task); // user add
         public bool DeleteTask(AppTask task);
         public bool UpdateTask(AppTask task);
         bool IsTaskExists(AppTask task);

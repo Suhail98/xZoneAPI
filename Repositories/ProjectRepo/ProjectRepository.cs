@@ -28,10 +28,11 @@ namespace xZoneAPI.Repositories.ProjectRepo
             db = _db;
             appSettings = _appSettings.Value;
         }
-        public bool addProject(Project Project)
+        public Project addProject(Project Project)
         {
             db.Projects.Add(Project);
-            return Save();
+            Save();
+            return Project;
         }
 
         public Project FindProjectById(int id)

@@ -12,7 +12,7 @@ namespace xZoneAPI.Repositories.TaskRepo
         ProjectTask GetTask(int TaskId);
         ProjectTask GetTask(string TaskName);
         //public ProjectTask AddTask(int UserId, TaskDto _TaskDto);
-        public bool AddTask(ProjectTask task); // user add
+        public ProjectTask AddTask(ProjectTask task); // user add
         public bool DeleteTask(ProjectTask task);
         public bool UpdateTask(ProjectTask task);
         bool IsTaskExists(ProjectTask task);

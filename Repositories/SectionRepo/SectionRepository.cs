@@ -17,10 +17,11 @@ namespace xZoneAPI.Repositories.SectionRepo
             appSettings = _appSettings.Value;
 
         }
-        public bool addSection(Section Section)
+        public Section addSection(Section Section)
         {
             db.Sections.Add(Section);
-            return Save();
+            Save();
+            return Section;
         }
 
         public Section FindSectionById(int id)
