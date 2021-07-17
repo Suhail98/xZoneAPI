@@ -63,7 +63,7 @@ namespace xZoneAPI.Controllers.ZonesControllers
             ZoneMemberRepo.AddZoneMember(Admin);
 
             var status = ZoneRepo.AddZone(zone);
-            if ( !status)
+            if (status == null)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {zone.Name} Project");
                 return StatusCode(500, ModelState);

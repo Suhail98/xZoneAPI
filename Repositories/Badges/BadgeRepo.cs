@@ -14,10 +14,11 @@ namespace xZoneAPI.Repositories.Badges
         {
             _db = db;
         }
-        public bool AddBadge(Badge Badge)
+        public Badge AddBadge(Badge Badge)
         {
             _db.Badges.Add(Badge);
-            return Save();
+            Save();
+            return Badge;
         }
 
         public bool DeleteBadge(Badge Badge)

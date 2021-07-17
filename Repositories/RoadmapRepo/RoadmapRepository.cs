@@ -17,10 +17,11 @@ namespace xZoneAPI.Repositories.RoadmapRepo
             db = _db;
             appSettings = _appSettings.Value;
         }
-        public bool addRoadmap(Roadmap Roadmap)
+        public Roadmap addRoadmap(Roadmap Roadmap)
         {
             db.Roadmaps.Add(Roadmap);
-            return Save();
+            Save();
+            return Roadmap;
         }
 
         public Roadmap FindRoadmapById(int id)

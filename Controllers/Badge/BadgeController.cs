@@ -35,12 +35,12 @@ namespace xZoneAPI.Controllers.Badges
             }
             // TODO verify whether tasks exists or not            
             var OperationStatus = repo.AddBadge(Badge);
-            if (!OperationStatus)
+            if (OperationStatus == null)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {Badge.Name} Badge");
                 return StatusCode(500, ModelState);
             }
-            return Ok();
+            return Ok(OperationStatus);
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]

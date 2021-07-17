@@ -37,12 +37,12 @@ namespace xZoneAPI.Controllers.Skills
             Skill xSkill = mapper.Map<Skill>(Skill);
             // TODO verify whether tasks exists or not            
             var OperationStatus = repo.AddSkill(xSkill);
-            if (!OperationStatus)
+            if (OperationStatus == xSkill)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {Skill.Name} Skill");
                 return StatusCode(500, ModelState);
             }
-            return Ok();
+            return Ok(xSkill);
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]

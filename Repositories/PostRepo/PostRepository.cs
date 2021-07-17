@@ -16,10 +16,11 @@ namespace xZoneAPI.Repositories.PostRepo
             db = _db;
         }
 
-        public bool AddPost(Post Post)
+        public Post AddPost(Post Post)
         {
             db.Posts.Add(Post);
-            return Save();
+            Save();
+            return Post;
         }
 
         public bool DeletePost(Post Post)

@@ -17,10 +17,11 @@ namespace xZoneAPI.Repositories.ZoneRepo
             db = _db;
             appSettings = _appSettings.Value;
         }
-        public bool AddZone(Zone Zone)
+        public Zone AddZone(Zone Zone)
         {
             db.Zones.Add(Zone);
-            return Save();
+            Save();
+            return Zone;
         }
 
         public bool DeleteZone(Zone Zone)

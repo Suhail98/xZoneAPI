@@ -7,7 +7,7 @@ namespace xZoneAPI.Repositories.Badges
 {
     public interface IBadgeRepo
     {
-        bool AddBadge(Badge Badge);
+        Badge AddBadge(Badge Badge);
         Badge FindBadgeById(int Id);
         ICollection<Badge> GetAllBadges();
         bool DeleteBadge(Badge Badge);

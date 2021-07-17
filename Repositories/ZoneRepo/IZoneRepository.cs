@@ -8,7 +8,7 @@ namespace xZoneAPI.Repositories.ZoneRepo
 {
     public interface IZoneRepository
     {
-        bool AddZone(Zone Zone);
+        Zone AddZone(Zone Zone);
         Zone FindZoneById(int Id);
         ICollection<Zone> GetAllZones();
         bool DeleteZone(Zone Zone);

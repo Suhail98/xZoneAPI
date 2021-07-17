@@ -7,7 +7,7 @@ namespace xZoneAPI.Repositories.Skills
 {
     public interface ISkillRepo
     {
-        bool AddSkill(Skill Skill);
+        Skill AddSkill(Skill Skill);
         Skill FindSkillById(int Id);
         ICollection<Skill> GetAllSkills();
         bool DeleteSkill(Skill Skill);

@@ -8,7 +8,7 @@ namespace xZoneAPI.Repositories.RoadmapRepo
 {
     public interface IRoadmapRepository
     {
-        bool addRoadmap(Roadmap Roadmap);
+        Roadmap addRoadmap(Roadmap Roadmap);
         Roadmap FindRoadmapById(int Id);
         ICollection<Roadmap> GetAllRoadmaps();
         bool DeleteRoadmap(Roadmap Roadmap);

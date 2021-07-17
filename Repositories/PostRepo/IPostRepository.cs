@@ -8,7 +8,7 @@ namespace xZoneAPI.Repositories.PostRepo
 {
     public interface IPostRepository
     {
-        bool AddPost(Post Post);
+        Post AddPost(Post Post);
         //Post FindPostById(int Id);
         ICollection<Post> GetAllPostsForZone(int ZoneId);
         ICollection<Post> GetAllPostsForZoneMember(int ZoneId, int WritertId);

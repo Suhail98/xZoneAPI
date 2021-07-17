@@ -58,12 +58,12 @@ namespace xZoneAPI.Controllers.RoadmapControllers
             }
             var xRoadmap = mapper.Map<Roadmap>(Roadmap);
             var OperationStatus = RoadmapRepo.addRoadmap(xRoadmap);
-            if (!OperationStatus)
+            if (OperationStatus == null)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {Roadmap.Name} Roadmap");
                 return StatusCode(500, ModelState);
             }
-            return Ok();
+            return Ok(OperationStatus);
         }
 
         [HttpDelete("{RoadmapId:int}")]

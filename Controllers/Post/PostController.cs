@@ -32,7 +32,7 @@ namespace xZoneAPI.Controllers.Posts
             if ( post == null) { return BadRequest(ModelState); }
             var xPost = mapper.Map<Post>(post);
             var OperationStatus = PostRepo.AddPost(xPost);
-            if (!OperationStatus)
+            if (OperationStatus == null)
             {
                 ModelState.AddModelError("", $"Something wrong in adding Post");
                 return StatusCode(500, ModelState);

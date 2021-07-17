@@ -14,10 +14,11 @@ namespace xZoneAPI.Repositories.Skills
         {
             _db = db;
         }
-        public bool AddSkill(Skill Skill)
+        public Skill AddSkill(Skill Skill)
         {
             _db.Skills.Add(Skill);
-            return Save();
+            Save();
+            return Skill;
         }
 
         public bool DeleteSkill(Skill Skill)

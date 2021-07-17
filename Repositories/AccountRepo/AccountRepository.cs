@@ -37,7 +37,14 @@ namespace xZoneAPI.Repositories.AccountRepo
         }
         public Account AuthenticateUser(string email, string password)
         {
-            var account = db.Accounts.Include(u => u.Tasks).Include(u=>u.Projects).Include("Projects.Sections").Include("Projects.Sections.ProjectTasks").FirstOrDefault(x => x.Email == email && x.Password == password);
+            var account = db.Accounts.Include(u => u.Tasks).Include(u=>u.Projects)
+                .Include("Projects.Sections")
+                .Include("Projects.Sections.ProjectTasks")
+                .Include(u=>u.Roadmaps)
+                .Include(u=>u.Zones)
+                .Include(u=>u.Skills)
+                .Include(u=>u.Badges)
+                .FirstOrDefault(x => x.Email == email && x.Password == password);
 
             if (account == null)
                 return null;
