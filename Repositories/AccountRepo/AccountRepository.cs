@@ -32,6 +32,7 @@ namespace xZoneAPI.Repositories.AccountRepo
         public Account register(Account account)
         {
             db.Accounts.Add(account);
+            account.bio = "";
             Save();
             return account;
         }
@@ -91,7 +92,13 @@ namespace xZoneAPI.Repositories.AccountRepo
         }
         public Account getProfile(int AccountId)
         {
-            Account account = db.Accounts.Include(u => u.Roadmaps).Include(u => u.Zones).Include(u => u.Badges).Include(u => u.Skills).FirstOrDefault(x => x.Id == AccountId);
+            Account account = db.Accounts
+                .Include(u => u.Roadmaps)
+                .Include(u => u.Zones)
+                .Include(u => u.Skills)
+                .Include(u => u.Badges)
+                .Include(u => u.Skills)
+                .FirstOrDefault(x => x.Id == AccountId);
             return account;
         }
         public bool Save()
