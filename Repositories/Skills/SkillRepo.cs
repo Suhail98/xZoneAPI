@@ -45,9 +45,9 @@ namespace xZoneAPI.Repositories.Skills
         {
             return _db.SaveChanges() >= 0;
         }
-        public Skill FindSkillByName(string name)
+        public List<Skill> FindSkillByName(string name)
         {
-            return _db.Skills.FirstOrDefault(a => a.Name == name);
+            return _db.Skills.Where(a => a.Name.Contains(name)).ToList();
         }
     }
 }

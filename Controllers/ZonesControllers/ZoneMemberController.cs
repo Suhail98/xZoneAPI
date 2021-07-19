@@ -24,6 +24,13 @@ namespace xZoneAPI.Controllers.ZonesControllers
             ZoneMemberRepo = zoneMemberRepository;
             mapper = _mapper;
         }
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetZoneMembers()
+        {
+            var objList = ZoneMemberRepo.GetAllZoneMembers();
+            return Ok(objList);
+        }
         [HttpPost("{joiningCode}")]
         public IActionResult JoinZone([FromBody]ZoneMember zoneMember, string joiningCode = "")
         {

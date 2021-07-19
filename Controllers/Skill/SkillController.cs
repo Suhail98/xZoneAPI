@@ -71,7 +71,7 @@ namespace xZoneAPI.Controllers.Skills
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetSkillByName(string name)
         {
-            Skill Skill = repo.FindSkillByName(name);
+            List<Skill> Skill = repo.FindSkillByName(name);
             if (Skill == null)
                 return NotFound();
             return Ok(Skill);

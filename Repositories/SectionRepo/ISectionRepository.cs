@@ -9,6 +9,8 @@ namespace xZoneAPI.Repositories.SectionRepo
         Section FindSectionById(int Id);
         ICollection<Section> GetAllSections();
         bool DeleteSection(Section Section);
+
+        
         bool UpdateSection(Section Section);
         public bool Save();
     }

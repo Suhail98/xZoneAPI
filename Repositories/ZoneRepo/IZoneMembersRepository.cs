@@ -13,6 +13,7 @@ namespace xZoneAPI.Repositories.ZoneRepo
         public bool RemoveZoneMember(ZoneMember Member);
         public bool IsAdmin(ZoneMember Memeber);
         public ICollection<ZoneMember> GetAllZoneMembers(int ZoneId);
+        public ICollection<ZoneMember> GetAllZoneMembers();
         public bool Save();
         ZoneMember GetZoneMember(int AccountMemberId);
 

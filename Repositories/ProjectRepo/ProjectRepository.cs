@@ -16,6 +16,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using xZoneAPI.Repositories.SectionRepo;
 
 namespace xZoneAPI.Repositories.ProjectRepo
 {
@@ -23,10 +24,12 @@ namespace xZoneAPI.Repositories.ProjectRepo
     {
         ApplicationDBContext db;
         private readonly AppSettings appSettings;
-        public ProjectRepository(ApplicationDBContext _db, IOptions<AppSettings> _appSettings)
+        ISectionRepository SectionRepo;
+        public ProjectRepository(ApplicationDBContext _db, IOptions<AppSettings> _appSettings, ISectionRepository SectionRepo)
         {
             db = _db;
             appSettings = _appSettings.Value;
+            this.SectionRepo = SectionRepo;
         }
         public Project addProject(Project Project)
         {

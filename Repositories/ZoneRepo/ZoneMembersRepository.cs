@@ -28,7 +28,10 @@ namespace xZoneAPI.Repositories.ZoneRepo
         {
             return db.ZoneMembers.Where(zm => zm.ZoneId == ZoneId).ToList();
         }
-
+        public ICollection<ZoneMember> GetAllZoneMembers()
+        {
+            return db.ZoneMembers.ToList();
+        }
         public bool IsAdmin(ZoneMember Member)
         {
             return (Member.Role == ZoneMember.Roles.Admin);

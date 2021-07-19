@@ -13,6 +13,6 @@ namespace xZoneAPI.Repositories.Skills
         bool DeleteSkill(Skill Skill);
         bool UpdateSkill(Skill Skill);
         public bool Save();
-        Skill FindSkillByName(string name);
+        List<Skill> FindSkillByName(string name);
     }
 }
