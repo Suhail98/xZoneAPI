@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using xZoneAPI.Data;
+using xZoneAPI.Models.Posts;
 using xZoneAPI.Models.Zones;
 
 namespace xZoneAPI.Repositories.ZoneRepo
@@ -41,9 +42,13 @@ namespace xZoneAPI.Repositories.ZoneRepo
             Zone zone = db.Zones.Include(u => u.Posts)
                 .Include(u => u.ZoneMembers)
                 .ThenInclude(u => u.Account)
+                .Include(u=>u.Posts)
+                .ThenInclude(u=>u.Writer)
                 .SingleOrDefault(z => z.Id == Id);
             foreach (ZoneMember zoneMember in zone.ZoneMembers)
                 zoneMember.Account.Password = "";
+            foreach (Post post in zone.Posts)
+               post.Writer.Password = "";
             return zone;
         }
 

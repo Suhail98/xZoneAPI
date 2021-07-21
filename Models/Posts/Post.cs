@@ -14,11 +14,13 @@ namespace xZoneAPI.Models.Posts
         [Key]
         public int Id {get; set;}
         public string content {get; set;}
+        public DateTime Date { get; set; }
         [ForeignKey("Writer")]
         public int WriterId { get; set; }
-        public Account Writer { get; set; }
+        
         [ForeignKey("Zone")]
         public int ZoneId { get; set; }
+        public Account Writer { get; set; }
         public Zone Zone { get; set; }
 
     }

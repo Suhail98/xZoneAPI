@@ -102,6 +102,9 @@ namespace xZoneAPI.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("WriterId")
                         .HasColumnType("int");
 

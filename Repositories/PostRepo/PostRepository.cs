@@ -18,6 +18,7 @@ namespace xZoneAPI.Repositories.PostRepo
 
         public Post AddPost(Post Post)
         {
+            Post.Date = DateTime.Now;
             db.Posts.Add(Post);
             Save();
             return Post;
