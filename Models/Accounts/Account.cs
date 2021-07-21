@@ -45,6 +45,7 @@ namespace xZoneAPI.Models.Accounts
         public ICollection<AccountSkill> Skills { get; set; }
         public ICollection<AccountBadge> Badges { get; set; }
         public ICollection<Friend> Friends { get; set; }
+        public ICollection<FriendRequest> FriendRequests { get; set; }
         public ICollection<AppTask> Tasks { get; set; }
         public ICollection<Project> Projects { get; set; }
         public ICollection<Roadmap> Roadmaps { get; set; }

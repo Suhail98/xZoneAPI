@@ -17,18 +17,12 @@ namespace xZoneAPI.Models.Accounts
 
         public ICollection<AccountSkill> Skills { get; set; }
         public ICollection<AccountBadge> Badges { get; set; }
-
-        //public enum RankType { Bronze, Silver, Gold, Plat }
-
-        // [ForeignKey("Rank")]
-        //public int? RankID { get; set; }
-          
+        
+        public ICollection<Friend> Friends { get; set; }
         public RankType Rank { get; set; }
         public ICollection<Roadmap> Roadmaps { get; set; }
 
         public ICollection<ZoneMember> Zones { get; set; }
-        //public ICollection<AppTask> tasks { get; set; }
-        //public ICollection<Project> projects { get; set; }
 
     }
 }

@@ -79,6 +79,36 @@ namespace xZoneAPI.Migrations
                     b.ToTable("AccountSkills");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.Friend", b =>
+                {
+                    b.Property<int>("FirstId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecondId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FirstId", "SecondId");
+
+                    b.HasIndex("SecondId");
+
+                    b.ToTable("Friends");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.FriendRequest", b =>
+                {
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReceiverId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SenderId", "ReceiverId");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.ToTable("FriendRequests");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.Badges.Badge", b =>
                 {
                     b.Property<int>("Id")
@@ -402,6 +432,44 @@ namespace xZoneAPI.Migrations
                     b.Navigation("Skill");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.Friend", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "First")
+                        .WithMany("Friends")
+                        .HasForeignKey("FirstId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Second")
+                        .WithMany()
+                        .HasForeignKey("SecondId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("First");
+
+                    b.Navigation("Second");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.FriendRequest", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Sender")
+                        .WithMany("FriendRequests")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.Posts.Post", b =>
                 {
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "Writer")
@@ -523,6 +591,10 @@ namespace xZoneAPI.Migrations
             modelBuilder.Entity("xZoneAPI.Models.Accounts.Account", b =>
                 {
                     b.Navigation("Badges");
+
+                    b.Navigation("FriendRequests");
+
+                    b.Navigation("Friends");
 
                     b.Navigation("Projects");
 
