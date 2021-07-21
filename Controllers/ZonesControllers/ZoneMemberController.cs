@@ -35,7 +35,7 @@ namespace xZoneAPI.Controllers.ZonesControllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetZonesIdForAccount(int accountId)
         {
-            List<int> objList = ZoneMemberRepo.GetAccountZonesId(accountId);
+            ICollection<int> objList = ZoneMemberRepo.GetAccountZonesId(accountId);
             return Ok(objList);
         }
         [HttpPost("{joiningCode}")]

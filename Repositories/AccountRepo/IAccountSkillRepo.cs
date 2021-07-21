@@ -14,7 +14,7 @@ namespace xZoneAPI.Repositories.AccountRepo
         bool DeleteAccountSkill(AccountSkill AccountSkill);
         bool UpdateAccountSkill(AccountSkill AccountSkill);
         public bool Save();
-        public List<int> GetAccountSkillsId(int accountId);
+        public ICollection<int> GetAccountSkillsId(int accountId);
 
     }
 }

@@ -16,7 +16,7 @@ namespace xZoneAPI.Repositories.ZoneRepo
         public ICollection<ZoneMember> GetAllZoneMembers();
         public bool Save();
         ZoneMember GetZoneMember(int AccountMemberId);
-        List<int> GetAccountZonesId(int AccountMemberId);
+        ICollection<int> GetAccountZonesId(int AccountMemberId);
 
         //        public bool RemovePost(ZoneMember Member, int PostId);
 

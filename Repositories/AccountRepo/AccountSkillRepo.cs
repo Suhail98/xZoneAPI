@@ -37,7 +37,7 @@ namespace xZoneAPI.Repositories.AccountRepo
         {
             return _db.AccountSkills.SingleOrDefault(a => a.AccountID == accountId && a.SkillID == skillId);
         }
-        public List<int> GetAccountSkillsId(int accountId)
+        public ICollection<int> GetAccountSkillsId(int accountId)
         {
             return _db.AccountSkills.Where(a => a.AccountID == accountId).Select(a=>a.SkillID).ToList();
         }
