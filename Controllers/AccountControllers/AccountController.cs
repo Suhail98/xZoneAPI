@@ -116,5 +116,15 @@ namespace xZoneAPI.Controllers.AccountControllers
             }
             return NoContent();
         }
+        [HttpGet("{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetAccountByName(string name)
+        {
+            List<Account> accounts = repo.FindAccountByName(name);
+            if (accounts == null || accounts.Count() == 0)
+                return NotFound();
+            return Ok(accounts);
+        }
     } 
 }

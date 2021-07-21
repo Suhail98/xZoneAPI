@@ -67,5 +67,9 @@ namespace xZoneAPI.Repositories.ZoneRepo
             db.Zones.Update(Zone);
             return Save();
         }
+        public List<Zone> FindZonesByName(string name)
+        {
+            return db.Zones.Where(a => a.Name.Contains(name)).ToList();
+        }
     }
 }

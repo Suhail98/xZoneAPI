@@ -19,5 +19,6 @@ namespace xZoneAPI.Repositories.AccountRepo
         bool DeleteAccount(Account account);
         bool UpdateAccount(Account account);
         public bool Save();
+        public List<Account> FindAccountByName(string name);
     }
 }

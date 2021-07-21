@@ -95,6 +95,7 @@ namespace xZoneAPI.Repositories.AccountRepo
             Account account = db.Accounts
                 .Include(u => u.Roadmaps)
                 .Include(u => u.Zones)
+                .ThenInclude(u=>u.Zone)
                 .Include(u => u.Skills)
                 .Include(u => u.Badges)
                 .Include(u => u.Skills)
@@ -110,6 +111,10 @@ namespace xZoneAPI.Repositories.AccountRepo
         {
             Account account = db.Accounts.Include(u => u.Badges).FirstOrDefault(x => x.Id == accountId);
             return account;
+        }
+        public List<Account> FindAccountByName(string name)
+        {
+            return db.Accounts.Where(a => a.UserName.Contains(name)).ToList();
         }
     }
 }

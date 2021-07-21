@@ -15,5 +15,6 @@ namespace xZoneAPI.Repositories.ZoneRepo
         bool UpdateZone(Zone Zone);
         public bool Save();
         public Zone FindZoneById(int Id);
+        public List<Zone> FindZonesByName(string name);
     }
 }

@@ -49,6 +49,9 @@ namespace xZoneAPI.Repositories.RoadmapRepo
         {
             return db.SaveChanges() >= 0;
         }
-
+        public List<Roadmap> FindRoadmapsByName(string name)
+        {
+            return db.Roadmaps.Where(a => a.Name.Contains(name)).ToList();
+        }
     }
 }

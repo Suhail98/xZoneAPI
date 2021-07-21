@@ -35,6 +35,13 @@ namespace xZoneAPI.Controllers.RoadmapControllers
             return Ok(RetRoadmaps);
         }
 
+        [HttpGet("{RoadmapId:int}")]
+        public IActionResult GetRoadmap(int RoadmapId)
+        {
+            Roadmap roadmap = RoadmapRepo.FindRoadmapById(RoadmapId);
+            return Ok(roadmap);
+        }
+
         [HttpPatch("{RoadmapId:int}")]
         public IActionResult EditRoadmap(int RoadmapId, [FromBody] RoadmapDto Roadmap)
         {
@@ -86,7 +93,16 @@ namespace xZoneAPI.Controllers.RoadmapControllers
             return NoContent();
         }
 
-
+        [HttpGet("{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetSkillByName(string name)
+        {
+            List<Roadmap> Roadmaps = RoadmapRepo.FindRoadmapsByName(name);
+            if (Roadmaps == null || Roadmaps.Count() == 0)
+                return NotFound();
+            return Ok(Roadmaps);
+        }
 
 
     }

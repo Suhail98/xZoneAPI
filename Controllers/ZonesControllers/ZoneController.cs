@@ -117,7 +117,16 @@ namespace xZoneAPI.Controllers.ZonesControllers
             return Ok(updatedZone);
         }
 
-
+        [HttpGet("{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetZonesByName(string name)
+        {
+            List<Zone> zones = ZoneRepo.FindZonesByName(name);
+            if (zones == null || zones.Count() == 0)
+                return NotFound();
+            return Ok(zones);
+        }
 
     }
 }
