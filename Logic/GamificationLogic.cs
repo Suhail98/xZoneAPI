@@ -33,15 +33,18 @@ namespace xZoneAPI.Logic
             AchievmentsNotifications achievmentsNotifications = new AchievmentsNotifications();
             account = accountRepo.GetAccountWithItsBadges(userID);
             achievmentsNotifications.badges = getNewBadges(userID);
-            achievmentsNotifications.newRank = getNewRank(userID);
+            achievmentsNotifications.newRank = getNewRank(account);
             return achievmentsNotifications;
         }
 
-        private RankType? getNewRank(int userID)
+        private RankType? getNewRank(Account account)
         {
-            int numOfActiveDays = taskRepo.GetActiveDays(userID);
+            int numOfActiveDays = taskRepo.GetActiveDays(account.Id);
             RankType newRank = (RankType)(numOfActiveDays / 2);
-            return account.Rank == newRank ? null : newRank;
+            RankType oldRank = account.Rank;
+            account.Rank = newRank;
+            accountRepo.UpdateAccount(account);
+            return oldRank == newRank ? null : newRank;
         }
 
         private List<int> getNewBadges(int userID)
