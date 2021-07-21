@@ -23,11 +23,13 @@ namespace xZoneAPI.Controllers.AccountControllers
     public class AccountController : ControllerBase
     {
         IAccountRepo repo;
+        IFriendRepository friendRepo;
         private readonly IMapper mapper;
-        public AccountController(IAccountRepo _repo, IMapper _mapper)
+        public AccountController(IAccountRepo _repo, IMapper _mapper, IFriendRepository friendRepo)
         {
             repo = _repo;
             mapper = _mapper;
+            this.friendRepo = friendRepo;
         }
         
         [HttpGet]
@@ -71,6 +73,7 @@ namespace xZoneAPI.Controllers.AccountControllers
             if (account == null)
                 return NotFound();
             ProfileDto profile = mapper.Map<ProfileDto>(account);
+            profile.Friends = friendRepo.GetAllFriendsAccountForAccount(id);
             return Ok(profile);
         }
         [HttpDelete("{id:int}")]

@@ -34,6 +34,14 @@ namespace xZoneAPI.Repositories.AccountRepo
         {
             return _db.Friends.Include(u=>u.First).Include(u=>u.Second).Where(u => u.FirstId == Id || u.SecondId == Id).ToList();
         }
+        public ICollection<Account> GetAllFriendsAccountForAccount(int Id)
+        {
+            return _db.Friends.Where(u => u.FirstId == Id || u.SecondId == Id)
+                .Include(u=>u.First)
+                .Include(u=>u.Second)
+                .Select(u=>u.FirstId != Id?u.First:u.Second)
+                .ToList();
+        }
         public bool DeleteFriend(Friend friend)
         {
             _db.Friends.Remove(friend);

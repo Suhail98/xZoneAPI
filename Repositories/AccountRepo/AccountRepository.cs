@@ -102,7 +102,6 @@ namespace xZoneAPI.Repositories.AccountRepo
                 .Include(u => u.Badges)
                 .Include(u => u.Skills)
                 .FirstOrDefault(x => x.Id == AccountId);
-            account.Friends = friendRepository.GetAllFriendsForAccount(AccountId);
             return account;
         }
         public bool Save()

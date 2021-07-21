@@ -15,7 +15,7 @@ namespace xZoneAPI.Models.Accounts
         public string UserName { get; set; }
         public string? bio { get; set; }
         public RankType Rank { get; set; }
-        public ICollection<Friend> Friends { get; set; }
+        public ICollection<Account> Friends { get; set; }
         public ICollection<AccountSkill> Skills { get; set; }
         public ICollection<AccountBadge> Badges { get; set; }                    
         public ICollection<Roadmap> Roadmaps { get; set; }
