@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace xZoneAPI.Repositories.AccountRepo
         }
         public ICollection<Friend> GetAllFriendsForAccount(int Id)
         {
-            return _db.Friends.Where(u => u.FirstId == Id || u.SecondId == Id).ToList();
+            return _db.Friends.Include(u=>u.First).Include(u=>u.Second).Where(u => u.FirstId == Id || u.SecondId == Id).ToList();
         }
         public bool DeleteFriend(Friend friend)
         {
