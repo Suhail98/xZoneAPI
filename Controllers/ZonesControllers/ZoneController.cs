@@ -38,13 +38,18 @@ namespace xZoneAPI.Controllers.ZonesControllers
             return Ok(ZonesList);
         }
 
+        [HttpGet("GetZone/Preview/{ZoneId:int}")]
+        public IActionResult GetZonePreview(int ZoneId)
+        {
+            Zone xZone = ZoneRepo.FindZonePreviewById(ZoneId);
+            return Ok(xZone);
+        }
         [HttpGet("GetZone/{ZoneId:int}")]
         public IActionResult GetZone(int ZoneId)
         {
             Zone xZone = ZoneRepo.FindZoneById(ZoneId);
             return Ok(xZone);
         }
-
         [HttpPost("createzone/{CreatorId:int}")]
         public IActionResult AddZone([FromBody] ZoneDto zoneDto, int CreatorId)
         {
@@ -74,7 +79,7 @@ namespace xZoneAPI.Controllers.ZonesControllers
         [HttpDelete("DeleteZone/{ZoneId:int}/{AccountId:int}")]
         public IActionResult DeleteZone(int ZoneId, int AccountId)
         {
-            var zone = ZoneRepo.FindZoneById(ZoneId);
+            var zone = ZoneRepo.FindZonePreviewById(ZoneId);
             var zoneAdmin = ZoneMemberRepo.GetZoneMember(AccountId);
             if ( !ZoneMemberRepo.IsAdmin(zoneAdmin))
             {

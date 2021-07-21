@@ -35,7 +35,7 @@ namespace xZoneAPI.Controllers.ZonesControllers
         public IActionResult JoinZone([FromBody]ZoneMember zoneMember, string joiningCode = "")
         {
             int zoneId = zoneMember.ZoneId;
-            Zone zone = ZoneRepo.FindZoneById(zoneId);
+            Zone zone = ZoneRepo.FindZonePreviewById(zoneId);
 
             if (zone == null)
             {
@@ -61,7 +61,7 @@ namespace xZoneAPI.Controllers.ZonesControllers
             {
                 return NotFound();
             }
-            Zone zone = ZoneRepo.FindZoneById(zoneMember.ZoneId);
+            Zone zone = ZoneRepo.FindZonePreviewById(zoneMember.ZoneId);
             var OperationStaus = ZoneMemberRepo.RemoveZoneMember(zoneMember);
             if (!OperationStaus)
             {

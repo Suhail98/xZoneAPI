@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,19 @@ namespace xZoneAPI.Repositories.ZoneRepo
             return Save();
         }
 
-        public Zone FindZoneById(int Id)
+        public Zone FindZonePreviewById(int Id)
         {
             Zone zone = db.Zones.SingleOrDefault(z => z.Id == Id);
+            return zone;
+        }
+        public Zone FindZoneById(int Id)
+        {
+            Zone zone = db.Zones.Include(u => u.Posts)
+                .Include(u => u.ZoneMembers)
+                .ThenInclude(u => u.Account)
+                .SingleOrDefault(z => z.Id == Id);
+            foreach (ZoneMember zoneMember in zone.ZoneMembers)
+                zoneMember.Account.Password = "";
             return zone;
         }
 

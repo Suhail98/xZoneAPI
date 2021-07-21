@@ -9,10 +9,11 @@ namespace xZoneAPI.Repositories.ZoneRepo
     public interface IZoneRepository
     {
         Zone AddZone(Zone Zone);
-        Zone FindZoneById(int Id);
+        Zone FindZonePreviewById(int Id);
         ICollection<Zone> GetAllZones();
         bool DeleteZone(Zone Zone);
         bool UpdateZone(Zone Zone);
         public bool Save();
+        public Zone FindZoneById(int Id);
     }
 }
