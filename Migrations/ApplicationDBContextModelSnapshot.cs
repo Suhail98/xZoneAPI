@@ -347,6 +347,9 @@ namespace xZoneAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NumOfMembers")
+                        .HasColumnType("int");
+
                     b.Property<int>("Privacy")
                         .HasColumnType("int");
 

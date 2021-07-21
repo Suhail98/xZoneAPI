@@ -12,6 +12,7 @@ namespace xZoneAPI.Repositories.ZoneRepo
     {
         ApplicationDBContext db;
         private readonly AppSettings appSettings;
+        IZoneRepository ZoneRepository;
 
         public ZoneMembersRepository(ApplicationDBContext _db, IOptions<AppSettings> _appSettings)
         {
@@ -21,6 +22,9 @@ namespace xZoneAPI.Repositories.ZoneRepo
         public bool AddZoneMember(ZoneMember Member)
         {
             db.ZoneMembers.Add(Member);
+            Zone zone = db.Zones.SingleOrDefault(u => Member.ZoneId == u.Id);
+            zone.NumOfMembers += 1;
+            db.Zones.Update(zone);
             return Save();
         }
 
@@ -40,6 +44,9 @@ namespace xZoneAPI.Repositories.ZoneRepo
         public bool RemoveZoneMember(ZoneMember Member)
         {
             db.ZoneMembers.Remove(Member);
+            Zone zone = db.Zones.SingleOrDefault(u => Member.ZoneId == u.Id);
+            zone.NumOfMembers -= 1;
+            db.Zones.Update(zone);
             return Save();
         }
 
