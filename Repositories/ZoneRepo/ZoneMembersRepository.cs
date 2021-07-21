@@ -59,6 +59,10 @@ namespace xZoneAPI.Repositories.ZoneRepo
             ZoneMember zoneMember = db.ZoneMembers.FirstOrDefault(zm => zm.AccountId == AccountMemberId);
             return zoneMember;
         }
-
+        public List<int> GetAccountZonesId(int AccountMemberId)
+        {
+            List<int> zonesId = db.ZoneMembers.Where(zm => zm.AccountId == AccountMemberId).Select(zm => zm.ZoneId).ToList();
+            return zonesId;
+        }
     }
 }

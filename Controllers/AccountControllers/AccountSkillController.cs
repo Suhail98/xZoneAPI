@@ -66,8 +66,8 @@ namespace xZoneAPI.Controllers.AccountSkillControllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAccountSkillsByID(int id)
         {
-            ICollection<AccountSkill> AccountSkills = repo.GetAllSkillsForAccount(id);
-            if (AccountSkills == null)
+            List<int> AccountSkills = repo.GetAccountSkillsId(id);
+            if (AccountSkills == null || AccountSkills.Count() == 0)
                 return NotFound();
             return Ok(AccountSkills);
         }

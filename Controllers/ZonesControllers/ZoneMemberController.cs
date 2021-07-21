@@ -31,6 +31,13 @@ namespace xZoneAPI.Controllers.ZonesControllers
             var objList = ZoneMemberRepo.GetAllZoneMembers();
             return Ok(objList);
         }
+        [HttpGet("{accountId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetZonesIdForAccount(int accountId)
+        {
+            List<int> objList = ZoneMemberRepo.GetAccountZonesId(accountId);
+            return Ok(objList);
+        }
         [HttpPost("{joiningCode}")]
         public IActionResult JoinZone([FromBody]ZoneMember zoneMember, string joiningCode = "")
         {
