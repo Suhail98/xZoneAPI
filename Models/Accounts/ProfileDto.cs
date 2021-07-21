@@ -14,14 +14,11 @@ namespace xZoneAPI.Models.Accounts
         //public string Email { get; set; }
         public string UserName { get; set; }
         public string? bio { get; set; }
-
-        public ICollection<AccountSkill> Skills { get; set; }
-        public ICollection<AccountBadge> Badges { get; set; }
-        
-        public ICollection<Friend> Friends { get; set; }
         public RankType Rank { get; set; }
+        public ICollection<Friend> Friends { get; set; }
+        public ICollection<AccountSkill> Skills { get; set; }
+        public ICollection<AccountBadge> Badges { get; set; }                    
         public ICollection<Roadmap> Roadmaps { get; set; }
-
         public ICollection<ZoneMember> Zones { get; set; }
 
     }

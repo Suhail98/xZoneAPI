@@ -23,11 +23,13 @@ namespace xZoneAPI.Repositories.AccountRepo
     public class AccountRepository : IAccountRepo
     {
         ApplicationDBContext db;
+        IFriendRepository friendRepository;
         private readonly AppSettings appSettings;
-        public AccountRepository(ApplicationDBContext _db, IOptions<AppSettings> _appSettings)
+        public AccountRepository(ApplicationDBContext _db, IOptions<AppSettings> _appSettings, IFriendRepository friendRepository)
         {
             db = _db;
             appSettings = _appSettings.Value;
+            this.friendRepository = friendRepository;
         }
         public Account register(Account account)
         {
@@ -99,8 +101,8 @@ namespace xZoneAPI.Repositories.AccountRepo
                 .Include(u => u.Skills)
                 .Include(u => u.Badges)
                 .Include(u => u.Skills)
-                .Include(u => u.Friends)
                 .FirstOrDefault(x => x.Id == AccountId);
+            account.Friends = friendRepository.GetAllFriendsForAccount(AccountId);
             return account;
         }
         public bool Save()
