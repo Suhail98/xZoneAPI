@@ -40,6 +40,7 @@ namespace xZoneAPI.Repositories.AccountRepo
                 .Include(u=>u.First)
                 .Include(u=>u.Second)
                 .Select(u=>u.FirstId != Id?u.First:u.Second)
+                .Select(u=> new Account(){ Id = u.Id,UserName = u.UserName})
                 .ToList();
         }
         public bool DeleteFriend(Friend friend)
