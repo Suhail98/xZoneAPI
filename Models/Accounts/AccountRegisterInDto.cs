@@ -15,5 +15,7 @@ namespace xZoneAPI.Models.Accounts
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
+        [Required]
+        public string Location { get; set; }
     }
 }
