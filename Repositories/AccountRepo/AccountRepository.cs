@@ -103,6 +103,7 @@ namespace xZoneAPI.Repositories.AccountRepo
                 .Include(u => u.Skills)
                 .Include(u => u.Badges)
                 .Include(u => u.Skills)
+                .ThenInclude(u=>u.Skill)
                 .FirstOrDefault(x => x.Id == AccountId);
             return account;
         }
