@@ -61,15 +61,24 @@ namespace xZoneAPI.Repositories.ZoneRepo
             return db.SaveChanges() >= 0 ;
         }
 
-        public ZoneMember GetZoneMember(int AccountMemberId)
+        public ZoneMember GetZoneMember(int AccountMemberId, int zoneId)
         {
-            ZoneMember zoneMember = db.ZoneMembers.FirstOrDefault(zm => zm.AccountId == AccountMemberId);
+            ZoneMember zoneMember = db.ZoneMembers.FirstOrDefault(zm => zm.AccountId == AccountMemberId && zm.ZoneId == zoneId);
             return zoneMember;
         }
         public ICollection<int> GetAccountZonesId(int AccountMemberId)
         {
             ICollection<int> zonesId = db.ZoneMembers.Where(zm => zm.AccountId == AccountMemberId).Select(zm => zm.ZoneId).ToList();
             return zonesId;
+        }
+      
+        ZoneMember IZoneMembersRepository.AddCompletedTask(int accountID, int zoneId)
+        {
+            ZoneMember zoneMember = GetZoneMember(accountID, zoneId);
+            zoneMember.NumOfCompletedTasks += 1;
+            UpdateZoneMember(zoneMember);
+            Save();
+            return zoneMember;
         }
     }
 }

@@ -47,6 +47,7 @@ namespace xZoneAPI.Models.Accounts
         public ICollection<Friend> Friends { get; set; }
         public ICollection<FriendRequest> FriendRequests { get; set; }
         public ICollection<AppTask> Tasks { get; set; }
+        public ICollection<AccountZoneTask> ZoneTasks { get; set; }
         public ICollection<Project> Projects { get; set; }
         public ICollection<Roadmap> Roadmaps { get; set; }
         public ICollection<ZoneMember> Zones { get; set; }

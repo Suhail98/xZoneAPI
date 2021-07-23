@@ -75,7 +75,7 @@ namespace xZoneAPI.Controllers.Posts
         [HttpGet("{ZoneId:int}/{WriterId}")]
         public IActionResult GetZoneMemberPosts(int ZoneId, int WriterId)
         {
-            ZoneMember zoneMember = ZoneMemberRepo.GetZoneMember(WriterId);
+            ZoneMember zoneMember = ZoneMemberRepo.GetZoneMember(WriterId,ZoneId);
             
             if ( zoneMember != null && zoneMember.ZoneId != ZoneId )
             {

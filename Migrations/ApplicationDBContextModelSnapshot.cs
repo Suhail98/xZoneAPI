@@ -82,6 +82,24 @@ namespace xZoneAPI.Migrations
                     b.ToTable("AccountSkills");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountZoneTask", b =>
+                {
+                    b.Property<int>("AccountID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZoneTaskID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CompleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("AccountID", "ZoneTaskID");
+
+                    b.HasIndex("ZoneTaskID");
+
+                    b.ToTable("AccountZoneTasks");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.Accounts.Friend", b =>
                 {
                     b.Property<int>("FirstId")
@@ -334,6 +352,39 @@ namespace xZoneAPI.Migrations
                     b.ToTable("Tasks");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.TaskModel.ZoneTask", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Remainder")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ZoneId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("parentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ZoneId");
+
+                    b.ToTable("ZoneTasks");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.Zones.Zone", b =>
                 {
                     b.Property<int>("Id")
@@ -436,6 +487,25 @@ namespace xZoneAPI.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("Skill");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Accounts.AccountZoneTask", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
+                        .WithMany("ZoneTasks")
+                        .HasForeignKey("AccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.TaskModel.ZoneTask", "ZoneTask")
+                        .WithMany("ZoneTasks")
+                        .HasForeignKey("ZoneTaskID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("ZoneTask");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.Accounts.Friend", b =>
@@ -556,6 +626,17 @@ namespace xZoneAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.TaskModel.ZoneTask", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Zones.Zone", "Zone")
+                        .WithMany("Tasks")
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Zone");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.Zones.ZoneMember", b =>
                 {
                     b.HasOne("xZoneAPI.Models.Accounts.Account", "Account")
@@ -611,6 +692,8 @@ namespace xZoneAPI.Migrations
                     b.Navigation("Tasks");
 
                     b.Navigation("Zones");
+
+                    b.Navigation("ZoneTasks");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.Badges.Badge", b =>
@@ -633,9 +716,16 @@ namespace xZoneAPI.Migrations
                     b.Navigation("AccountsSkill");
                 });
 
+            modelBuilder.Entity("xZoneAPI.Models.TaskModel.ZoneTask", b =>
+                {
+                    b.Navigation("ZoneTasks");
+                });
+
             modelBuilder.Entity("xZoneAPI.Models.Zones.Zone", b =>
                 {
                     b.Navigation("Posts");
+
+                    b.Navigation("Tasks");
 
                     b.Navigation("ZoneMembers");
 

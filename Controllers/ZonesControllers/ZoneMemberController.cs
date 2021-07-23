@@ -53,6 +53,8 @@ namespace xZoneAPI.Controllers.ZonesControllers
             {
                 return BadRequest(ModelState);
             }
+            zoneMember.Score = 0;
+            zoneMember.NumOfCompletedTasks = 0;
             var OperationStaus = ZoneMemberRepo.AddZoneMember(zoneMember);
             if (!OperationStaus)
             {

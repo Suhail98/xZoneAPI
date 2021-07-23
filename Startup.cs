@@ -76,6 +76,8 @@ namespace xZoneAPI
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
+            services.AddScoped<IZoneTaskRepository, AccountZoneTaskRepository>();
+            services.AddScoped<IAccountZoneTaskRepo, AccountZoneTaskRepo>();
             services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {
@@ -98,6 +100,7 @@ namespace xZoneAPI
                         Title = "xZone API",
                         Version = "1",
                     });
+                options.CustomSchemaIds(type => type.ToString());
 
                 var xmlCommentFile = $"{ Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);

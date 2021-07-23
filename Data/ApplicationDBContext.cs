@@ -30,9 +30,11 @@ namespace xZoneAPI.Data
             modelBuilder.Entity<ZoneSkill>().HasKey(ba => new { ba.ZoneId, ba.SkillId });
             modelBuilder.Entity<Friend>().HasKey(ba => new { ba.FirstId, ba.SecondId });
             modelBuilder.Entity<FriendRequest>().HasKey(ba => new { ba.SenderId, ba.ReceiverId });
+            modelBuilder.Entity<AccountZoneTask>().HasKey(ba => new { ba.AccountID, ba.ZoneTaskID });
             modelBuilder.Entity<AppTask>().ToTable("Tasks");
             modelBuilder.Entity<AccountSkill>().ToTable("AccountSkills");
             modelBuilder.Entity<ProjectTask>().ToTable("ProjectTasks");
+            modelBuilder.Entity<ZoneTask>().ToTable("ZoneTasks");
             modelBuilder.Entity<Friend>()
             .HasOne(e => e.First)
             .WithMany(e => e.Friends);
@@ -72,9 +74,10 @@ namespace xZoneAPI.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<ZoneSkill> ZoneSkills { get; set; }
         public DbSet<ZoneMember> ZoneMembers { get; set; }
-
         public DbSet<Friend> Friends { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
+        public DbSet<ZoneTask> ZoneTasks { get; set; }
+        public DbSet<AccountZoneTask> AccountZoneTasks { get; set; }
 
     }
 }

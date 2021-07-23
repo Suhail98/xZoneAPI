@@ -21,6 +21,7 @@ namespace xZoneAPI.mappers
             CreateMap<Account, AccountRegisterInDto>().ReverseMap();
             CreateMap<Account, ProfileDto>().ReverseMap();
             CreateMap<AppTask, TaskDto>().ReverseMap();
+            CreateMap<ZoneTask, TaskDto>().ReverseMap();
             CreateMap<Skill, SkillDto>().ReverseMap();
             CreateMap<Project, ProjectDto>().ReverseMap();
             CreateMap<Project, UpdateProjectDto>().ReverseMap();
@@ -29,6 +30,7 @@ namespace xZoneAPI.mappers
             CreateMap<Roadmap, RoadmapDto>().ReverseMap();
             CreateMap<Zone, ZoneDto>().ReverseMap();
             CreateMap<Post, PostDto>().ReverseMap();
+            CreateMap<ZoneTask, ZoneTaskDto>().ReverseMap();
 
         }
     }

@@ -13,5 +13,6 @@ namespace xZoneAPI.Models.ProjectTaskModel
         [ForeignKey("ParentSection")]
         public int SectionID { get; set; }
         public Section ParentSection  { get; set; }
+        public DateTime? CompleteDate { get; set; }
     }
 }

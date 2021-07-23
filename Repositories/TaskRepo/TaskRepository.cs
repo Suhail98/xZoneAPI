@@ -61,12 +61,6 @@ namespace xZoneAPI.Repositories.TaskRepo
             return  t != null;
         }
 
-        /*public AppTask IsTaskExists(AppTask task)
-        {
-            AppTask t = db.appTasks.FirstOrDefault(a => (a.Id == task.Id) && (a.UserId == task.UserId) && (a.Name == task.Name));
-            return t;
-        }*/
-
         public bool Save()
         {
             return db.SaveChanges() >= 0;

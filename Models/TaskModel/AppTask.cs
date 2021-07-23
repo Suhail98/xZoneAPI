@@ -15,6 +15,7 @@ namespace xZoneAPI.Models.TaskModel
         [ForeignKey("User")]
         public int UserId { get; set; }
         public Account User { get; set; }
+        public DateTime? CompleteDate { get; set; }
 
     }
 }

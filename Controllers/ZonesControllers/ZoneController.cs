@@ -82,7 +82,7 @@ namespace xZoneAPI.Controllers.ZonesControllers
         public IActionResult DeleteZone(int ZoneId, int AccountId)
         {
             var zone = ZoneRepo.FindZonePreviewById(ZoneId);
-            var zoneAdmin = ZoneMemberRepo.GetZoneMember(AccountId);
+            var zoneAdmin = ZoneMemberRepo.GetZoneMember(AccountId,ZoneId);
             if ( !ZoneMemberRepo.IsAdmin(zoneAdmin))
             {
                 return BadRequest(ModelState);
