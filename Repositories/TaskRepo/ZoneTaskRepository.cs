@@ -34,7 +34,7 @@ namespace xZoneAPI.Repositories.TaskRepo
         }
         public ICollection<ZoneTask> GetTasks(int ZoneId)
         {
-            return db.ZoneTasks.Where(a => a.Id == ZoneId).ToList();
+            return db.ZoneTasks.Where(a => a.ZoneId == ZoneId).ToList();
         }
         public ZoneTask GetTask(string taskName)
         {

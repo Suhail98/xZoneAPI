@@ -44,6 +44,7 @@ namespace xZoneAPI.Repositories.ZoneRepo
                 .ThenInclude(u => u.Account)
                 .Include(u=>u.Posts)
                 .ThenInclude(u=>u.Writer)
+                .Include(u=>u.Tasks)
                 .SingleOrDefault(z => z.Id == Id);
             foreach (ZoneMember zoneMember in zone.ZoneMembers)
                 zoneMember.Account.Password = "";
