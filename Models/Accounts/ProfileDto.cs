@@ -21,5 +21,6 @@ namespace xZoneAPI.Models.Accounts
         public ICollection<Roadmap> Roadmaps { get; set; }
         public ICollection<ZoneMember> Zones { get; set; }
 
+
     }
 }

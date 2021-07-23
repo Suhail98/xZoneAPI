@@ -47,6 +47,8 @@ namespace xZoneAPI.Repositories.AccountRepo
                 .Include(u=>u.Zones)
                 .Include(u=>u.Skills)
                 .Include(u=>u.Badges)
+                .Include(u=>u.ZoneTasks)
+                .ThenInclude(u=>u.ZoneTask)
                 .FirstOrDefault(x => x.Email == email && x.Password == password);
 
             if (account == null)
