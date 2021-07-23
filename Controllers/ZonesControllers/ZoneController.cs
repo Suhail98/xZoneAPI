@@ -62,17 +62,18 @@ namespace xZoneAPI.Controllers.ZonesControllers
             {
                 return BadRequest(ModelState);
             }
-            
             var zone = mapper.Map<Zone>(zoneDto);
-            ZoneMember Admin = new ZoneMember(zone.Id, CreatorId, ZoneMember.Roles.Admin);
-            ZoneMemberRepo.AddZoneMember(Admin);
-
             var status = ZoneRepo.AddZone(zone);
             if (status == null)
             {
                 ModelState.AddModelError("", $"Something wrong in adding {zone.Name} Project");
                 return StatusCode(500, ModelState);
             }
+          
+            ZoneMember Admin = new ZoneMember(zone.Id, CreatorId, ZoneMember.Roles.Admin);
+            ZoneMemberRepo.AddZoneMember(Admin);
+
+           
             return Ok(zone);
         }
 

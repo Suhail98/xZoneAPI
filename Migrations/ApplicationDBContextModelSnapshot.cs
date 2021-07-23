@@ -44,6 +44,9 @@ namespace xZoneAPI.Migrations
                     b.Property<string>("bio")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("location")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");

@@ -34,7 +34,7 @@ namespace xZoneAPI.Models.Accounts
         public string Token { get; set; }
         public string? bio { get; set; }
 
-        
+        public string location { get; set; }
 
         public enum RankType { Bronze, Silver, Gold, Plat }
         

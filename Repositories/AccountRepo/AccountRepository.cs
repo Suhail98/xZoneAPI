@@ -61,12 +61,14 @@ namespace xZoneAPI.Repositories.AccountRepo
                     new Claim(ClaimTypes.Name, account.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha256Signature)
             };
             var token = TokenHandler.CreateToken(tokenDescriptor);
             account.Token = TokenHandler.WriteToken(token);
            return account;
         }
+
         public Account FindAccountByEmail(string email)
         {
            Account account =db.Accounts.SingleOrDefault(x => x.Email == email);

@@ -68,6 +68,8 @@ namespace xZoneAPI.Controllers.TaskControllers
             }
             return Ok(OperationStatus);
         }
+
+
         [HttpDelete("{TaskId:int}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -87,6 +89,7 @@ namespace xZoneAPI.Controllers.TaskControllers
             
             return NoContent();
         }
+
         [HttpPost("{taskId:int}/{userId:int}")]
         public IActionResult FinishAppTask(int taskId, int userId)
         {

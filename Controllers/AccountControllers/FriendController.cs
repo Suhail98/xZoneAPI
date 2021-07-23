@@ -35,7 +35,8 @@ namespace xZoneAPI.Controllers.AccountControllers
             {
                 return BadRequest(ModelState);
             }
-            Friend friend = new Friend() { FirstId = FriendRequest.SenderId, SecondId = FriendRequest.ReceiverId};
+            Friend friend = new Friend() { FirstId = FriendRequest.SenderId,
+                SecondId = FriendRequest.ReceiverId};
             // TODO verify whether tasks exists or not            
             var OperationStatus = repo.AddFriend(friend);
             if (OperationStatus == null)
@@ -45,6 +46,7 @@ namespace xZoneAPI.Controllers.AccountControllers
             }
             return Ok(OperationStatus);
         }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetFriends()

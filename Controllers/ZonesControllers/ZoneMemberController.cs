@@ -38,6 +38,7 @@ namespace xZoneAPI.Controllers.ZonesControllers
             ICollection<int> objList = ZoneMemberRepo.GetAccountZonesId(accountId);
             return Ok(objList);
         }
+
         [HttpPost("{joiningCode}")]
         public IActionResult JoinZone([FromBody]ZoneMember zoneMember, string joiningCode = "")
         {
