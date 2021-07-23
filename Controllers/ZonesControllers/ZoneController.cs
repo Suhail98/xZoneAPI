@@ -20,11 +20,12 @@ namespace xZoneAPI.Controllers.ZonesControllers
         private IZoneMembersRepository ZoneMemberRepo;
         private readonly IMapper mapper;
 
-        public ZoneController(IZoneRepository zoneRepository, IAccountRepo accountRepo,IMapper _mapper)
+        public ZoneController(IZoneRepository zoneRepository, IAccountRepo accountRepo, IMapper _mapper, IZoneMembersRepository zoneMemberRepo)
         {
             ZoneRepo = zoneRepository;
             AccountRepo = accountRepo;
             mapper = _mapper;
+            ZoneMemberRepo = zoneMemberRepo;
         }
 
         [HttpGet]
@@ -69,12 +70,12 @@ namespace xZoneAPI.Controllers.ZonesControllers
                 ModelState.AddModelError("", $"Something wrong in adding {zone.Name} Project");
                 return StatusCode(500, ModelState);
             }
-          
-            ZoneMember Admin = new ZoneMember(zone.Id, CreatorId, ZoneMember.Roles.Admin);
+
+            ZoneMember Admin = new ZoneMember(status.Id, CreatorId, ZoneMember.Roles.Admin);
             ZoneMemberRepo.AddZoneMember(Admin);
 
            
-            return Ok(zone);
+            return Ok(status);
         }
 
         [HttpDelete("DeleteZone/{ZoneId:int}/{AccountId:int}")]
