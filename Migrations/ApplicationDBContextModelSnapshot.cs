@@ -378,6 +378,9 @@ namespace xZoneAPI.Migrations
                     b.Property<int?>("parentID")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("publishDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ZoneId");

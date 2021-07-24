@@ -17,7 +17,7 @@ namespace xZoneAPI.Models.TaskModel
         public Zone Zone { get; set; }
         public ICollection<AccountZoneTask> ZoneTasks { get; set; }
 
-        public DateTime publishDate;
+        public DateTime publishDate { get; set; }
 
     }
 }

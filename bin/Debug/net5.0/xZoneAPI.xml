@@ -12,5 +12,19 @@
              @author your_name_here
             </summary>
         </member>
+        <member name="M:xZoneAPI.Controllers.AccountControllers.FriendRequestController.GetSentFriendRequestByID(System.Int32)">
+            <summary>
+            get friend requests which the user sent
+            </summary>
+            <param name="id"></param>
+            <returns>IDs</returns>
+        </member>
+        <member name="M:xZoneAPI.Controllers.AccountControllers.FriendRequestController.GetReceivedFriendRequestByID(System.Int32)">
+            <summary>
+            get friend requests which the user received
+            </summary>
+            <param name="id"></param>
+            <returns>IDs</returns>
+        </member>
     </members>
 </doc>
