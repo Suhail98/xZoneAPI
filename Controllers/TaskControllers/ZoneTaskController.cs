@@ -57,6 +57,7 @@ namespace xZoneAPI.Controllers.TaskControllers
                 return BadRequest(ModelState);
             }
             var xTask = mapper.Map<ZoneTask>(taskDto);
+            xTask.publishDate = DateTime.Now;
             var OperationStatus = ZoneTaskRepo.AddTask(xTask);
             if (OperationStatus == null)
             {
