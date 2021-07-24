@@ -41,7 +41,7 @@ namespace xZoneAPI.Repositories.TaskRepo
 
         public ICollection<ProjectTask> GetTasks(int sectionID)
         {
-            return db.ProjectTasks.OrderBy(a => a.SectionID == sectionID).ToList();
+            return db.ProjectTasks.Where(a => a.SectionID == sectionID).ToList();
         }
 
         public bool IsTaskExists(ProjectTask task)
@@ -66,5 +66,18 @@ namespace xZoneAPI.Repositories.TaskRepo
             db.Update(task);
             return Save();
         }
+
+        public ICollection<DateTime> GetListOfActiveDays(int userId)
+        {
+            ICollection<DateTime> activeDayes = db.ProjectTasks.Where(u => u.CompleteDate.HasValue).Select(u => u.CompleteDate.Value.Date).Distinct().ToList();
+            return activeDayes;
+        }
+
+        public int GetFinishedTasks(int userId)
+        {
+            int count = db.ProjectTasks.Count(u => u.CompleteDate != null);
+            return count;
+        }
+
     }
 }

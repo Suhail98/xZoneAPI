@@ -20,5 +20,6 @@ namespace xZoneAPI.Repositories.TaskRepo
         bool IsTaskExists(AppTask task);
         // share
         bool Save();
+        public ICollection<DateTime> GetListOfActiveDays(int userId);
     }
 }

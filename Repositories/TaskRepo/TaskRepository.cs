@@ -40,6 +40,15 @@ namespace xZoneAPI.Repositories.TaskRepo
             int count = db.appTasks.Select(u => u.CompleteDate.Value.Day).Distinct().Count();
             return count;
         }
+
+        public ICollection<DateTime> GetListOfActiveDays(int userId)
+        {
+            
+            ICollection<DateTime> activeDayes = db.appTasks.Where(u => u.CompleteDate.HasValue ).Select(u => u.CompleteDate.Value.Date).Distinct().ToList();
+            return activeDayes;
+        }
+
+
         public AppTask GetTask(int TaskId)
         {
             return db.appTasks.FirstOrDefault(a => a.Id == TaskId);

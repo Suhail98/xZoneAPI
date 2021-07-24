@@ -51,5 +51,12 @@ namespace xZoneAPI.Repositories.TaskRepo
             return Save();
         }
 
+        public int GetFinishedTasks(int userId)
+        {
+            int count = db.AccountZoneTasks.Count(u => u.CompleteDate != null);
+            return count;
+        }
+
+
     }
 }

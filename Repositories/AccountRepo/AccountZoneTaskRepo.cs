@@ -53,5 +53,18 @@ namespace xZoneAPI.Repositories.AccountRepo
         {
             return db.AccountZoneTasks.Where(u => u.AccountID == accountID && u.ZoneTaskID == zoneTaskID).ToList();
         }
+
+        public ICollection<DateTime> GetListOfActiveDays(int userId)
+        {
+
+            ICollection<DateTime> activeDayes = db.AccountZoneTasks.Where(u => u.CompleteDate.HasValue).Select(u => u.CompleteDate.Value.Date).Distinct().ToList();
+            return activeDayes;
+        }
+
+        public int GetFinishedTasks(int userId)
+        {
+            int count = db.AccountZoneTasks.Count(u => u.CompleteDate != null);
+            return count;
+        }
     }
 }

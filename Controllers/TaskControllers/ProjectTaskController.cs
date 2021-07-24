@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using xZoneAPI.Logic;
 using xZoneAPI.Models.ProjectTaskModel;
 using xZoneAPI.Models.TaskModel;
 using xZoneAPI.Repositories.TaskRepo;
@@ -16,15 +17,17 @@ namespace xZoneAPI.Controllers.TaskControllers
     public class ProjectTaskController : ControllerBase
     {
         private IProjectTaskRepository TaskRepo;
+        private IGamificationLogic gamificationLogic;
         private readonly IMapper mapper;
 
-        public ProjectTaskController(IProjectTaskRepository _TaskRepo, IMapper _mapper)
+        public ProjectTaskController(IProjectTaskRepository _TaskRepo, IMapper _mapper, IGamificationLogic _gamificationLogic)
         {
             TaskRepo = _TaskRepo;
             mapper = _mapper;
+            gamificationLogic = _gamificationLogic;
         }
 
-        [HttpGet]
+        [HttpGet("getprojecttasks/{sectionId:int}")]
         public IActionResult GetProjectTasks(int sectionId)
         {
             ICollection<ProjectTask> TaskList = TaskRepo.GetTasks(sectionId);
@@ -86,6 +89,25 @@ namespace xZoneAPI.Controllers.TaskControllers
             }
 
             return NoContent();
+        }
+
+        [HttpPost("{taskId:int}/{userId:int}")]
+        public IActionResult FinishProjectTask(int taskId, int userId)
+        {
+            var xTask = TaskRepo.GetTask(taskId);
+            if (xTask == null)
+            {
+                return NotFound();
+            }
+            xTask.CompleteDate = DateTime.Now;
+            var OperationStatus = TaskRepo.UpdateTask(xTask);
+            if (!OperationStatus)
+            {
+                ModelState.AddModelError("", $"Something wrong in updating {xTask.Name} task");
+                return StatusCode(500, ModelState);
+            }
+            AchievmentsNotifications notifications = gamificationLogic.checkForNewAchievements(userId);
+            return Ok(notifications);
         }
 
 

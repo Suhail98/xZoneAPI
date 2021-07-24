@@ -12,5 +12,6 @@ namespace xZoneAPI.Repositories.TaskRepo
         public ICollection<ZoneTask> GetTasks(int ZoneId);
         bool Save();
         bool UpdateTask(ZoneTask task);
+        public int GetFinishedTasks(int userId);
     }
 }

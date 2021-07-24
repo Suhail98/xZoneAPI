@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using xZoneAPI.Models.Accounts;
 
 namespace xZoneAPI.Repositories.AccountRepo
@@ -12,5 +13,8 @@ namespace xZoneAPI.Repositories.AccountRepo
         public ICollection<AccountZoneTask> GetAllAccountZoneTasks();
         ICollection<AccountZoneTask> GetAllAccountZoneTasksForAccount(int id);
         ICollection<AccountZoneTask> GetAllAccountZoneTasks(int accountID, int zoneTaskID);
+        public ICollection<DateTime> GetListOfActiveDays(int userId);
+
+        public int GetFinishedTasks(int userId);
     }
 }

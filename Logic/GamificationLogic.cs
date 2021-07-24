@@ -18,15 +18,19 @@ namespace xZoneAPI.Logic
         List<AbstractBadge> badges;
         IAccountRepo accountRepo;
         IAccountBadgeRepo accountBadgeRepo;
+        IAccountZoneTaskRepo accountZoneTaskRepo;
+        IProjectTaskRepository projectTaskRepo;
         ITaskRepository taskRepo;
         Account account;
 
-        public GamificationLogic(IBadgesSetFactory factory, IAccountBadgeRepo accountBadgeRepo, ITaskRepository taskRepo, IAccountRepo accountRepo)
+        public GamificationLogic(IBadgesSetFactory factory, IAccountBadgeRepo accountBadgeRepo, ITaskRepository taskRepo, IAccountRepo accountRepo, IAccountZoneTaskRepo accountZoneTaskRepo, IProjectTaskRepository projectTaskRepo)
         {
             badges = factory.createFullAchievementSet();
             this.accountBadgeRepo = accountBadgeRepo;
             this.taskRepo = taskRepo;
             this.accountRepo = accountRepo;
+            this.accountZoneTaskRepo = accountZoneTaskRepo;
+            this.projectTaskRepo = projectTaskRepo;
         }
         public AchievmentsNotifications checkForNewAchievements(int userID)
         {
@@ -39,7 +43,16 @@ namespace xZoneAPI.Logic
 
         private RankType? getNewRank(Account account)
         {
-            int numOfActiveDays = taskRepo.GetActiveDays(account.Id);
+            int userId = account.Id;
+            List<DateTime> activeDayesDates = new List<DateTime> ();
+            if(taskRepo.GetListOfActiveDays(userId).Count() > 0) activeDayesDates.AddRange(taskRepo.GetListOfActiveDays(userId));
+            if (accountZoneTaskRepo.GetListOfActiveDays(userId).Count() > 0) activeDayesDates.AddRange(accountZoneTaskRepo.GetListOfActiveDays(userId));
+            if (projectTaskRepo.GetListOfActiveDays(userId).Count() > 0) activeDayesDates.AddRange(projectTaskRepo.GetListOfActiveDays(userId));
+
+            HashSet<DateTime> setOfDays = new HashSet<DateTime>(activeDayesDates);
+
+            //int numOfActiveDays = taskRepo.GetActiveDays(account.Id);
+            int numOfActiveDays = setOfDays.Count();
             RankType newRank = (RankType)(numOfActiveDays / 2);
             RankType oldRank = account.Rank;
             account.Rank = newRank;

@@ -16,5 +16,7 @@ namespace xZoneAPI.Repositories.TaskRepo
         public bool DeleteTask(ProjectTask task);
         public bool UpdateTask(ProjectTask task);
         bool IsTaskExists(ProjectTask task);
+        public ICollection<DateTime> GetListOfActiveDays(int userId);
+        public int GetFinishedTasks(int userId);
     }
 }
