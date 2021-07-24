@@ -76,7 +76,7 @@ namespace xZoneAPI.Controllers.AccountControllers
                 accountZoneTask.ZoneTaskID) == null)
                 return NotFound();
             accountZoneTask.CompleteDate = DateTime.Now;
-            int zoneId = ZoneTaskRepo.GetTask(accountZoneTask.ZoneTaskID).Id;
+            int zoneId = ZoneTaskRepo.GetTask(accountZoneTask.ZoneTaskID).ZoneId;
             ZoneMember zoneMember = ZoneMembersRepo.AddCompletedTask(accountZoneTask.AccountID,zoneId);
             return Ok(zoneMember);
         }
