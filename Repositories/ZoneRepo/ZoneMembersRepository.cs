@@ -63,7 +63,7 @@ namespace xZoneAPI.Repositories.ZoneRepo
 
         public ZoneMember GetZoneMember(int AccountMemberId, int zoneId)
         {
-            ZoneMember zoneMember = db.ZoneMembers.FirstOrDefault(zm => zm.AccountId == AccountMemberId && zm.ZoneId == zoneId);
+            ZoneMember zoneMember = db.ZoneMembers.FirstOrDefault(zm => zm.ZoneId == zoneId && zm.AccountId == AccountMemberId );
             return zoneMember;
         }
         public ICollection<int> GetAccountZonesId(int AccountMemberId)
