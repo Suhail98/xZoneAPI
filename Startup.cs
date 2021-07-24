@@ -78,6 +78,7 @@ namespace xZoneAPI
             services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
             services.AddScoped<IZoneTaskRepository, AccountZoneTaskRepository>();
             services.AddScoped<IAccountZoneTaskRepo, AccountZoneTaskRepo>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {

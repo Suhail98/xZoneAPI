@@ -12,6 +12,7 @@ using xZoneAPI.Models.ProjectTaskModel;
 using xZoneAPI.Models.RoadmapModel;
 using xZoneAPI.Models.Zones;
 using xZoneAPI.Models.Posts;
+using xZoneAPI.Models.CommentModel;
 //using System.Data.Entity;
 
 namespace xZoneAPI.Data
@@ -53,6 +54,7 @@ namespace xZoneAPI.Data
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 
+
         }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AppTask> appTasks { get; set; }
@@ -78,6 +80,8 @@ namespace xZoneAPI.Data
         public DbSet<FriendRequest> FriendRequests { get; set; }
         public DbSet<ZoneTask> ZoneTasks { get; set; }
         public DbSet<AccountZoneTask> AccountZoneTasks { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
 
     }
 }

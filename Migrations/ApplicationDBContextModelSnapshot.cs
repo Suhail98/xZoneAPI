@@ -146,7 +146,7 @@ namespace xZoneAPI.Migrations
                     b.ToTable("Badges");
                 });
 
-            modelBuilder.Entity("xZoneAPI.Models.Posts.Post", b =>
+            modelBuilder.Entity("xZoneAPI.Models.CommentModel.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -156,14 +156,42 @@ namespace xZoneAPI.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WriterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("WriterId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.Posts.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("WriterId")
                         .HasColumnType("int");
 
                     b.Property<int>("ZoneId")
                         .HasColumnType("int");
-
-                    b.Property<string>("content")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -547,6 +575,23 @@ namespace xZoneAPI.Migrations
                     b.Navigation("Receiver");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("xZoneAPI.Models.CommentModel.Comment", b =>
+                {
+                    b.HasOne("xZoneAPI.Models.Posts.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("xZoneAPI.Models.Accounts.Account", "Writer")
+                        .WithMany()
+                        .HasForeignKey("WriterId");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Writer");
                 });
 
             modelBuilder.Entity("xZoneAPI.Models.Posts.Post", b =>

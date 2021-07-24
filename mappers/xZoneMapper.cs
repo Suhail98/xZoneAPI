@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using xZoneAPI.Models.Accounts;
+using xZoneAPI.Models.CommentModel;
 using xZoneAPI.Models.Posts;
 using xZoneAPI.Models.ProjectModel;
 using xZoneAPI.Models.ProjectTaskModel;
@@ -31,7 +32,7 @@ namespace xZoneAPI.mappers
             CreateMap<Zone, ZoneDto>().ReverseMap();
             CreateMap<Post, PostDto>().ReverseMap();
             CreateMap<ZoneTask, ZoneTaskDto>().ReverseMap();
-
+            CreateMap<Comment, CommentDto>().ReverseMap();
         }
     }
 }
