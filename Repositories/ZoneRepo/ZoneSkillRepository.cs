@@ -47,12 +47,12 @@ namespace xZoneAPI.Repositories.ZoneRepo
             List<Skill> skills = zoneSkills.Select(u => u.Skill).ToList();
             return skills;
         }
-        public List<Zone> GetZonesForSkill(ICollection<int> skillsId)
+        public List<Zone> GetPublicZonesForSkill(ICollection<int> skillsId)
         {
             List<Zone> zones = new List<Zone>();
             foreach(int skillId in skillsId)
             {
-                ZoneSkill zoneSkill = db.ZoneSkills.Include(u => u.Zone).SingleOrDefault(u => u.SkillId == skillId);
+                ZoneSkill zoneSkill = db.ZoneSkills.Include(u => u.Zone).SingleOrDefault(u => u.SkillId == skillId && u.Zone.Privacy == Zone.PrivacyType.Public);
                 if(zoneSkill != null)
                     zones.Add(zoneSkill.Zone);
             }
@@ -64,7 +64,5 @@ namespace xZoneAPI.Repositories.ZoneRepo
             var zoneSkill = db.ZoneSkills.SingleOrDefault(zs => zs.SkillId == skillId && zs.ZoneId == zoneId);
             return zoneSkill;
         }
-
-
     }
 }
