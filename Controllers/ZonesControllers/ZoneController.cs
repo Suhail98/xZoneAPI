@@ -52,6 +52,7 @@ namespace xZoneAPI.Controllers.ZonesControllers
         public IActionResult GetZoneRecommender(int userId)
         {
             List<Zone> Zones = zoneRecommender.getRecommendedZones(userId);
+            if (Zones.Count() == 0) Zones = ZoneRepo.GetAllZones().ToList();
             return Ok(Zones);
         }
         [HttpGet("GetZone/{ZoneId:int}")]
