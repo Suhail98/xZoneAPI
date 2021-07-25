@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using xZoneAPI.Logic;
 using xZoneAPI.Models.Accounts;
 using xZoneAPI.Models.Zones;
 using xZoneAPI.Repositories.AccountRepo;
@@ -21,14 +22,16 @@ namespace xZoneAPI.Controllers.AccountControllers
         private IAccountZoneTaskRepo repo;
         private IZoneTaskRepository ZoneTaskRepo;
         private IZoneMembersRepository ZoneMembersRepo;
+        private IGamificationLogic gamificationLogic;
         private readonly IMapper mapper;
 
-        public AccountZoneTaskController(IAccountZoneTaskRepo repo, IMapper mapper, IZoneTaskRepository zoneTaskRepo, IZoneMembersRepository zoneMembersRepo)
+        public AccountZoneTaskController(IAccountZoneTaskRepo repo, IMapper mapper, IZoneTaskRepository zoneTaskRepo, IZoneMembersRepository zoneMembersRepo, IGamificationLogic gamificationLogic)
         {
             this.repo = repo;
             this.mapper = mapper;
             ZoneTaskRepo = zoneTaskRepo;
             ZoneMembersRepo = zoneMembersRepo;
+            this.gamificationLogic = gamificationLogic;
         }
 
         [HttpPost]
@@ -78,7 +81,8 @@ namespace xZoneAPI.Controllers.AccountControllers
             accountZoneTask.CompleteDate = DateTime.Now;
             int zoneId = ZoneTaskRepo.GetTask(accountZoneTask.ZoneTaskID).ZoneId;
             ZoneMember zoneMember = ZoneMembersRepo.AddCompletedTask(accountZoneTask.AccountID,zoneId);
-            return Ok(zoneMember);
+            AchievmentsNotifications notifications = gamificationLogic.checkForNewAchievements(accountZoneTask.AccountID);
+            return Ok(notifications);
         }
 
 

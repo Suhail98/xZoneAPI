@@ -12,35 +12,40 @@ namespace xZoneAPI.Recommenders
 
     public class ZoneRecommender : IZoneRecommender
     {
+        IAccountRepo accountRepo;
         IZoneRepository zoneRepo;
         IZoneSkillRepository zoneSkillRepo;
         IAccountSkillRepo accountSkillRepo;
-        public ZoneRecommender(IZoneRepository zoneRepo, IAccountSkillRepo accountSkillRepo, IZoneSkillRepository zoneSkillRepo)
+        public ZoneRecommender(IZoneRepository zoneRepo, IAccountSkillRepo accountSkillRepo, IZoneSkillRepository zoneSkillRepo, IAccountRepo accountRepo)
         {
             this.zoneRepo = zoneRepo;
             this.accountSkillRepo = accountSkillRepo;
             this.zoneSkillRepo = zoneSkillRepo;
+            this.accountRepo = accountRepo;
         }
-        double cosineSim(ICollection<int> firstSkills, ICollection<int> secondSkills)
+        double cosineSim(ICollection<int> userSkills, Zone zone, string userLocation)
         {
+            ICollection<int> secondSkills = (zone.ZoneSkills.Select(u => u.SkillId)).ToList();
             double top = 0;
-            foreach (int skill in firstSkills)
+            if (zone.NumOfMembers > 0 && zone.NumOfAdminLocation / zone.NumOfMembers >= 0.3) zone.Location = zone.AdminLocation;
+            if (zone.Location == userLocation) top += 1;
+            foreach (int skill in userSkills)
             {
                 foreach (int skill2 in secondSkills)
                     if (skill == skill2) top += 1;
             }
-            double bot = Math.Sqrt(firstSkills.Count()) * Math.Sqrt(secondSkills.Count());
+            double bot = Math.Sqrt(userSkills.Count()+1) * Math.Sqrt(secondSkills.Count()+1);
             return top / bot;
         }
 
-        List<Zone> getTenMaxRecommendedZones(ICollection<int> skillsIds, ICollection<Zone> zones)
+        List<Zone> getTenMaxRecommendedZones(ICollection<int> skillsIds, ICollection<Zone> zones, string userLocation)
         {
             SortedDictionary<double, Zone> simZones =
             new SortedDictionary<double, Zone>((Comparer<double>.Create((x, y) => y.CompareTo(x))));
             foreach (Zone zone in zones)
             {
-                ICollection<int> secondSkills = (zone.ZoneSkills.Select(u=>u.SkillId)).ToList();
-                simZones.Add(cosineSim(skillsIds, secondSkills), zone);
+                
+                simZones.Add(cosineSim(skillsIds, zone,userLocation), zone);
             }
             List<Zone> result = new List<Zone>();
             foreach (KeyValuePair<double, Zone> pair in simZones)
@@ -52,10 +57,11 @@ namespace xZoneAPI.Recommenders
 
         public List<Zone> getRecommendedZones(int userId)
         {
+            string location = accountRepo.FindAccountById(userId).location;
             ICollection<int> skillsIds = accountSkillRepo.GetAccountSkillsId(userId);
             ICollection<Zone> zones = zoneSkillRepo.GetZonesForSkill(skillsIds);
-            List<Zone> result = getTenMaxRecommendedZones(skillsIds, zones);
+            List<Zone> result = getTenMaxRecommendedZones(skillsIds, zones,location);
             return result;
         }
-    */}
+    }
 }

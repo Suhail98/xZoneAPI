@@ -63,8 +63,8 @@ namespace xZoneAPI.Controllers.ZonesControllers
         [HttpPost("createzone/{CreatorId:int}")]
         public IActionResult AddZone([FromBody] ZoneDto zoneDto, int CreatorId)
         {
-            var CreatorStatus = AccountRepo.FindAccountById(CreatorId) != null;
-            if ( !CreatorStatus )
+            var CreatorStatus = AccountRepo.FindAccountById(CreatorId);
+            if ( CreatorStatus == null )
             {
                 return BadRequest(ModelState);
             }
@@ -73,6 +73,8 @@ namespace xZoneAPI.Controllers.ZonesControllers
                 return BadRequest(ModelState);
             }
             var zone = mapper.Map<Zone>(zoneDto);
+            zone.AdminLocation = CreatorStatus.location;
+            zone.NumOfAdminLocation = 1;
             var status = ZoneRepo.AddZone(zone);
             if (status == null)
             {

@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using xZoneAPI.Models.Accounts;
 using xZoneAPI.Models.Zones;
+using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.Repositories.ZoneRepo;
 
 namespace xZoneAPI.Controllers.ZonesControllers
@@ -16,13 +18,15 @@ namespace xZoneAPI.Controllers.ZonesControllers
     {
         private IZoneMembersRepository ZoneMemberRepo;
         private IZoneRepository ZoneRepo;
+        private IAccountRepo AccountRepo;
         private readonly IMapper mapper;
 
-        public ZoneMemberController(IZoneMembersRepository zoneMemberRepository, IZoneRepository zoneRepository, IMapper _mapper)
+        public ZoneMemberController(IZoneMembersRepository zoneMemberRepository, IZoneRepository zoneRepository, IMapper _mapper, IAccountRepo accountRepo)
         {
             ZoneRepo = zoneRepository;
             ZoneMemberRepo = zoneMemberRepository;
             mapper = _mapper;
+            AccountRepo = accountRepo;
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -44,7 +48,12 @@ namespace xZoneAPI.Controllers.ZonesControllers
         {
             int zoneId = zoneMember.ZoneId;
             Zone zone = ZoneRepo.FindZonePreviewById(zoneId);
-
+            string location = AccountRepo.FindAccountById(zoneMember.AccountId).location;
+            if (zone.AdminLocation == location)
+            {
+                zone.NumOfAdminLocation += 1;
+                ZoneRepo.UpdateZone(zone);
+            }
             if (zone == null)
             {
                 return BadRequest(ModelState);
@@ -69,9 +78,15 @@ namespace xZoneAPI.Controllers.ZonesControllers
         {
             if (zoneMember == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             Zone zone = ZoneRepo.FindZonePreviewById(zoneMember.ZoneId);
+            string location = AccountRepo.FindAccountById(zoneMember.AccountId).location;
+            if (zone.AdminLocation == location)
+            {
+                zone.NumOfAdminLocation -= 1;
+                ZoneRepo.UpdateZone(zone);
+            }
             var OperationStaus = ZoneMemberRepo.RemoveZoneMember(zoneMember);
             if (!OperationStaus)
             {
