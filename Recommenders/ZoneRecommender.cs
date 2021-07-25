@@ -39,7 +39,7 @@ namespace xZoneAPI.Recommenders
             new SortedDictionary<double, Zone>((Comparer<double>.Create((x, y) => y.CompareTo(x))));
             foreach (Zone zone in zones)
             {
-                ICollection<int> secondSkills = (ICollection<int>)zones.Select(u => u.ZoneSkills.Select(x => x.SkillId));
+                ICollection<int> secondSkills = (zone.ZoneSkills.Select(u=>u.SkillId)).ToList();
                 simZones.Add(cosineSim(skillsIds, secondSkills), zone);
             }
             List<Zone> result = new List<Zone>();
@@ -57,5 +57,5 @@ namespace xZoneAPI.Recommenders
             List<Zone> result = getTenMaxRecommendedZones(skillsIds, zones);
             return result;
         }
-    */}
+    }
 }
