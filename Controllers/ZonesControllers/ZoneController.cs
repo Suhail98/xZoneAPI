@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using xZoneAPI.Models.Zones;
+using xZoneAPI.Recommenders;
 using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.Repositories.ZoneRepo;
 
@@ -19,13 +20,15 @@ namespace xZoneAPI.Controllers.ZonesControllers
         private IAccountRepo AccountRepo;
         private IZoneMembersRepository ZoneMemberRepo;
         private readonly IMapper mapper;
+        private IZoneRecommender zoneRecommender;
 
-        public ZoneController(IZoneRepository zoneRepository, IAccountRepo accountRepo, IMapper _mapper, IZoneMembersRepository zoneMemberRepo)
+        public ZoneController(IZoneRepository zoneRepository, IAccountRepo accountRepo, IMapper _mapper, IZoneMembersRepository zoneMemberRepo, IZoneRecommender zoneRecommender)
         {
             ZoneRepo = zoneRepository;
             AccountRepo = accountRepo;
             mapper = _mapper;
             ZoneMemberRepo = zoneMemberRepo;
+            this.zoneRecommender = zoneRecommender;
         }
 
         [HttpGet]
@@ -44,6 +47,12 @@ namespace xZoneAPI.Controllers.ZonesControllers
         {
             Zone xZone = ZoneRepo.FindZonePreviewById(ZoneId);
             return Ok(xZone);
+        }
+        [HttpGet("GetZone/ZoneRecommender/{userId:int}")]
+        public IActionResult GetZoneRecommender(int userId)
+        {
+            List<Zone> Zones = zoneRecommender.getRecommendedZones(userId);
+            return Ok(Zones);
         }
         [HttpGet("GetZone/{ZoneId:int}")]
         public IActionResult GetZone(int ZoneId)

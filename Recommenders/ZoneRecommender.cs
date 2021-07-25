@@ -9,8 +9,8 @@ using xZoneAPI.Repositories.ZoneRepo;
 
 namespace xZoneAPI.Recommenders
 {
-   
-    public class ZoneRecommender
+
+    public class ZoneRecommender : IZoneRecommender
     {
         IZoneRepository zoneRepo;
         IZoneSkillRepository zoneSkillRepo;
@@ -21,20 +21,41 @@ namespace xZoneAPI.Recommenders
             this.accountSkillRepo = accountSkillRepo;
             this.zoneSkillRepo = zoneSkillRepo;
         }
-        ICollection<Zone> getTenMaxRecommendedZones(ICollection<int> skillsIds, ICollection<Zone> zones)
+        double cosineSim(ICollection<int> firstSkills, ICollection<int> secondSkills)
         {
-            foreach(Zone zone in zones)
+            double top = 0;
+            foreach (int skill in firstSkills)
             {
-
+                foreach (int skill2 in secondSkills)
+                    if (skill == skill2) top += 1;
             }
+            double bot = Math.Sqrt(firstSkills.Count()) * Math.Sqrt(secondSkills.Count());
+            return top / bot;
         }
-        
-        public ICollection<Zone> getRecommendedZones(int userId)
+
+        List<Zone> getTenMaxRecommendedZones(ICollection<int> skillsIds, ICollection<Zone> zones)
+        {
+            SortedDictionary<double, Zone> simZones =
+            new SortedDictionary<double, Zone>((Comparer<double>.Create((x, y) => y.CompareTo(x))));
+            foreach (Zone zone in zones)
+            {
+                ICollection<int> secondSkills = (ICollection<int>)zones.Select(u => u.ZoneSkills.Select(x => x.SkillId));
+                simZones.Add(cosineSim(skillsIds, secondSkills), zone);
+            }
+            List<Zone> result = new List<Zone>();
+            foreach (KeyValuePair<double, Zone> pair in simZones)
+            {
+                result.Add(pair.Value);
+            }
+            return result;
+        }
+
+        public List<Zone> getRecommendedZones(int userId)
         {
             ICollection<int> skillsIds = accountSkillRepo.GetAccountSkillsId(userId);
             ICollection<Zone> zones = zoneSkillRepo.GetZonesForSkill(skillsIds);
-            SortedDictionary<double, Zone> openWith =
-           new SortedDictionary<double, Zone>();
+            List<Zone> result = getTenMaxRecommendedZones(skillsIds, zones);
+            return result;
         }
     }
 }
