@@ -47,7 +47,13 @@ namespace xZoneAPI.Repositories.ZoneRepo
             List<Skill> skills = zoneSkills.Select(u => u.Skill).ToList();
             return skills;
         }
-
+        public ICollection<Zone> GetZonesForSkill(ICollection<int> skillsId)
+        {
+            ICollection<Zone> zones = db.ZoneSkills
+                .Include(u=> u.Zone)
+                .Where(u => skillsId.SingleOrDefault(x=>u.SkillId == x) != null).Select(u=>u.Zone).ToList();
+            return zones;
+        }
         public ZoneSkill GetZoneSkill(int zoneId, int skillId)
         {
             var zoneSkill = db.ZoneSkills.SingleOrDefault(zs => zs.SkillId == skillId && zs.ZoneId == zoneId);

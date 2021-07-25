@@ -17,5 +17,6 @@ namespace xZoneAPI.Repositories.ZoneRepo
         List<Skill> GetAllSkillsForZone(int zoneId);
 
         public ZoneSkill GetZoneSkill(int zoneId, int skillId);
+        public ICollection<Zone> GetZonesForSkill(ICollection<int> skillsId);
     }
 }

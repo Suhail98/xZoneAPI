@@ -36,8 +36,7 @@ namespace xZoneAPI.Repositories.TaskRepo
         }
         public int GetActiveDays(int userId)
         {
-
-            int count = db.appTasks.Select(u => u.CompleteDate.Value.Day).Distinct().Count();
+            int count = db.appTasks.Select(u => u.CompleteDate.Value).Distinct().Count();
             return count;
         }
 

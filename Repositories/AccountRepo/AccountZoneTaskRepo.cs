@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace xZoneAPI.Repositories.AccountRepo
         }
         public ICollection<AccountZoneTask> GetAllAccountZoneTasksForAccount(int id)
         {
-            return db.AccountZoneTasks.Where(u => u.AccountID == id).ToList();
+            return db.AccountZoneTasks.Include(u=>u.ZoneTask).Where(u => u.AccountID == id).ToList();
         }
 
         public bool Save()
