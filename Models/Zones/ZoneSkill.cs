@@ -12,7 +12,7 @@ namespace xZoneAPI.Models.Zones
         [ForeignKey("Zone")]
         public int ZoneId { get; set; }
         [ForeignKey("Skill")]
-        public int? SkillId { get; set; }
+        public int SkillId { get; set; }
         public Zone Zone { get; set; }
         public Skill Skill { get; set; }
     }

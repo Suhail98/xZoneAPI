@@ -37,6 +37,7 @@ using xZoneAPI.Repositories.AccountRepo;
 using xZoneAPI.Repositories.AccountBadges;
 using xZoneAPI.Repositories.ZoneRepo;
 using xZoneAPI.Repositories.PostRepo;
+using xZoneAPI.Recommenders;
 
 namespace xZoneAPI
 {
@@ -79,6 +80,7 @@ namespace xZoneAPI
             services.AddScoped<IZoneTaskRepository, AccountZoneTaskRepository>();
             services.AddScoped<IAccountZoneTaskRepo, AccountZoneTaskRepo>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IZoneRecommender, ZoneRecommender>();
             services.AddAutoMapper(typeof(xZoneMapper));
             services.AddApiVersioning(options =>
             {
