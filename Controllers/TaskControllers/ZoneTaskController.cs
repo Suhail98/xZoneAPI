@@ -96,6 +96,7 @@ namespace xZoneAPI.Controllers.TaskControllers
             ICollection<ZoneMember> zoneMembers = ZoneMemberRepo.GetAllZoneMembers(ZoneId);
             foreach (ZoneMember zoneMember in zoneMembers)
             {
+
                 AccountZoneTaskRepo.DeleteTask(new Models.Accounts.AccountZoneTask()
                 {
                     ZoneTaskID = TaskId,

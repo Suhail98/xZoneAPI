@@ -23,7 +23,11 @@ namespace xZoneAPI.Repositories.AccountRepo
         }
         public bool DeleteTask(AccountZoneTask task)
         {
-            db.AccountZoneTasks.Remove(task);
+            AccountZoneTask accountZoneTask = db.AccountZoneTasks
+                .SingleOrDefault(u => u.AccountID == task.AccountID
+                && u.ZoneTaskID == task.ZoneTaskID);
+            if (accountZoneTask == null) return true;
+            db.AccountZoneTasks.Remove(accountZoneTask);
             return Save();
         }
 
