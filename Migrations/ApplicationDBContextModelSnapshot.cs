@@ -159,11 +159,11 @@ namespace xZoneAPI.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("WriterId")
                         .HasColumnType("int");
+
+                    b.Property<string>("content")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
