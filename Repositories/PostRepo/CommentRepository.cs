@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace xZoneAPI.Repositories.PostRepo
         }
         public ICollection<Comment> GetAllCommentsForPost(int PostId)
         {
-            List<Comment> comments = db.Comments.Where(cmnt => cmnt.PostId == PostId).ToList();
+            List<Comment> comments = db.Comments.Include(u=>u.Writer).Where(cmnt => cmnt.PostId == PostId).ToList();
             return comments;
         }
         public bool UpdateComment(Comment Comment)

@@ -21,6 +21,7 @@ namespace xZoneAPI.Recommenders
             this.accountSkillRepo = accountSkillRepo;
             this.zoneSkillRepo = zoneSkillRepo;
         }
+        /*
         ICollection<Zone> getTenMaxRecommendedZones(ICollection<int> skillsIds, ICollection<Zone> zones)
         {
             foreach(Zone zone in zones)
@@ -36,5 +37,5 @@ namespace xZoneAPI.Recommenders
             SortedDictionary<double, Zone> openWith =
            new SortedDictionary<double, Zone>();
         }
-    }
+    */}
 }
