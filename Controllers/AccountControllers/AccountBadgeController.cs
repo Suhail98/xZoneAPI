@@ -70,7 +70,7 @@ namespace xZoneAPI.Controllers.AccountBadgeControllers
                 return NotFound();
             return Ok(AccountBadges);
         }
-        [HttpDelete("{accountId:int}/{BadgeID:int}")]
+        [HttpDelete("{accountId:int}/{BadgeId:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

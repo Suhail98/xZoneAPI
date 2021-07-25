@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using xZoneAPI.Logic;
 using xZoneAPI.Models.Posts;
 using xZoneAPI.Models.Zones;
 using xZoneAPI.Repositories.PostRepo;
@@ -18,12 +19,13 @@ namespace xZoneAPI.Controllers.Posts
         private IPostRepository PostRepo;
         private IZoneMembersRepository ZoneMemberRepo;
         private readonly IMapper mapper;
-
-        public PostController(IPostRepository postRepository, IZoneMembersRepository zoneMembersRepository, IMapper _mapper)
+        IGamificationLogic gamificationLogic;
+        public PostController(IPostRepository postRepository, IZoneMembersRepository zoneMembersRepository, IMapper _mapper, IGamificationLogic gamificationLogic)
         {
             PostRepo = postRepository;
             mapper = _mapper;
             ZoneMemberRepo = zoneMembersRepository;
+            this.gamificationLogic = gamificationLogic;
         }
 
         [HttpPost("writepost")]
@@ -37,6 +39,7 @@ namespace xZoneAPI.Controllers.Posts
                 ModelState.AddModelError("", $"Something wrong in adding Post");
                 return StatusCode(500, ModelState);
             }
+            var achievments = gamificationLogic.checkForNewAchievements(post.WriterId);
             return Ok(xPost);
         }
 

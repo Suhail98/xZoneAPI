@@ -12,6 +12,7 @@ namespace xZoneAPI.Repositories.PostRepo
         //Post FindPostById(int Id);
         ICollection<Post> GetAllPostsForZone(int ZoneId);
         ICollection<Post> GetAllPostsForZoneMember(int ZoneId, int WritertId);
+        int GetNumOfPostsForUser(int userId);
         bool DeletePost(Post Post);
         bool UpdatePost(Post Post);
         public bool Save();

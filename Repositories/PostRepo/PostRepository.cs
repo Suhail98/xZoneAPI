@@ -56,5 +56,10 @@ namespace xZoneAPI.Repositories.PostRepo
             var xPost = db.Posts.SingleOrDefault(p => p.Id == PostId);
             return xPost;
         }
+
+        public int GetNumOfPostsForUser(int userId)
+        {
+            return db.Posts.Where(u => u.WriterId == userId).Count();
+        }
     }
 }

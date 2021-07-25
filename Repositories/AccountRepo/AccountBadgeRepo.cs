@@ -32,7 +32,7 @@ namespace xZoneAPI.Repositories.AccountRepo
         }
         public ICollection<AccountBadge> GetAllBadgesForAccount(int Id)
         {
-            return _db.AccountBadges.OrderBy(a => a.AccountID == Id).ToList();
+            return _db.AccountBadges.Where(a => a.AccountID == Id).ToList();
         }
         public bool UpdateAccountBadge(AccountBadge AccountBadge)
         {

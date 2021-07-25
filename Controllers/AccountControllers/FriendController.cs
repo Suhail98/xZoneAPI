@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using xZoneAPI.Logic;
 using xZoneAPI.Models.Accounts;
 using xZoneAPI.Repositories.AccountRepo;
 
@@ -19,10 +20,12 @@ namespace xZoneAPI.Controllers.AccountControllers
     {
         IFriendRepository repo;
         private readonly IMapper mapper;
-        public FriendController(IFriendRepository _repo, IMapper _mapper)
+        IGamificationLogic gamificationLogic;
+        public FriendController(IFriendRepository _repo, IMapper _mapper, IGamificationLogic gamificationLogic)
         {
             repo = _repo;
             mapper = _mapper;
+            this.gamificationLogic = gamificationLogic;
         }
 
         [HttpPost]
@@ -44,6 +47,8 @@ namespace xZoneAPI.Controllers.AccountControllers
                 ModelState.AddModelError("", $"Something wrong in adding Friend");
                 return StatusCode(500, ModelState);
             }
+            gamificationLogic.checkForNewAchievements(FriendRequest.SenderId);
+            gamificationLogic.checkForNewAchievements(FriendRequest.ReceiverId);
             return Ok(OperationStatus);
         }
 
