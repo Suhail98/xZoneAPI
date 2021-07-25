@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,13 +70,21 @@ namespace xZoneAPI.Repositories.TaskRepo
 
         public ICollection<DateTime> GetListOfActiveDays(int userId)
         {
-            ICollection<DateTime> activeDayes = db.ProjectTasks.Where(u => u.CompleteDate.HasValue).Select(u => u.CompleteDate.Value.Date).Distinct().ToList();
+            ICollection<DateTime> activeDayes = db.ProjectTasks
+                .Include(u => u.ParentSection)
+                .ThenInclude(u => u.ParentProject)
+                .Where(u => u.CompleteDate.HasValue
+                && u.ParentSection.ParentProject.OwnerID == userId).Select(u => u.CompleteDate.Value.Date).Distinct().ToList();
             return activeDayes;
         }
 
         public int GetFinishedTasks(int userId)
         {
-            int count = db.ProjectTasks.Count(u => u.CompleteDate != null);
+            int count = db.ProjectTasks
+                .Include(u=>u.ParentSection)
+                .ThenInclude(u=>u.ParentProject)
+                .Count(u => u.CompleteDate != null
+                && u.ParentSection.ParentProject.OwnerID == userId);
             return count;
         }
 

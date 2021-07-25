@@ -62,13 +62,13 @@ namespace xZoneAPI.Repositories.AccountRepo
         public ICollection<DateTime> GetListOfActiveDays(int userId)
         {
 
-            ICollection<DateTime> activeDayes = db.AccountZoneTasks.Where(u => u.CompleteDate.HasValue).Select(u => u.CompleteDate.Value.Date).Distinct().ToList();
+            ICollection<DateTime> activeDayes = db.AccountZoneTasks.Where(u => u.CompleteDate.HasValue && u.AccountID == userId).Select(u => u.CompleteDate.Value.Date).Distinct().ToList();
             return activeDayes;
         }
 
         public int GetFinishedTasks(int userId)
         {
-            int count = db.AccountZoneTasks.Count(u => u.CompleteDate != null);
+            int count = db.AccountZoneTasks.Count(u => u.CompleteDate != null && u.AccountID == userId);
             return count;
         }
     }

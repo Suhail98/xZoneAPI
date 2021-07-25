@@ -31,19 +31,19 @@ namespace xZoneAPI.Repositories.TaskRepo
 
         public int GetFinishedTasks(int userId)
         {
-            int count = db.appTasks.Count(u => u.CompleteDate != null);
+            int count = db.appTasks.Count(u => u.CompleteDate != null && u.UserId == userId);
             return count;
         }
         public int GetActiveDays(int userId)
         {
-            int count = db.appTasks.Select(u => u.CompleteDate.Value).Distinct().Count();
+            int count = db.appTasks.Where(u=>u.UserId == userId ).Select(u => u.CompleteDate.Value.Day ).Distinct().Count();
             return count;
         }
 
         public ICollection<DateTime> GetListOfActiveDays(int userId)
         {
             
-            ICollection<DateTime> activeDayes = db.appTasks.Where(u => u.CompleteDate.HasValue ).Select(u => u.CompleteDate.Value.Date).Distinct().ToList();
+            ICollection<DateTime> activeDayes = db.appTasks.Where(u => u.CompleteDate.HasValue && userId == u.UserId ).Select(u => u.CompleteDate.Value.Date).Distinct().ToList();
             return activeDayes;
         }
 

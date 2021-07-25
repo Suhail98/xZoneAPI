@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,11 @@ namespace xZoneAPI.Repositories.RoadmapRepo
 
         public Roadmap FindRoadmapById(int id)
         {
-            Roadmap Roadmap = db.Roadmaps.SingleOrDefault(x => x.Id == id);
+            Roadmap Roadmap = db.Roadmaps
+                .Include(u=> u.Project)
+                .ThenInclude(u=>u.Sections)
+                .ThenInclude(u=>u.ProjectTasks)
+                .SingleOrDefault(x => x.Id == id);
             return Roadmap;
         }
         public ICollection<Roadmap> GetAllRoadmaps()
