@@ -43,7 +43,10 @@ namespace xZoneAPI.Repositories.AccountRepo
         {
             return db.AccountZoneTasks.Include(u=>u.ZoneTask).Where(u => u.AccountID == id).ToList();
         }
-
+        public AccountZoneTask GetAccountZoneTask(int accountId, int taskId)
+        {
+            return db.AccountZoneTasks.SingleOrDefault(u => u.AccountID == accountId && taskId == u.ZoneTaskID);
+         }
         public bool Save()
         {
             return db.SaveChanges() >= 0;

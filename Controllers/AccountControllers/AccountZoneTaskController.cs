@@ -74,14 +74,13 @@ namespace xZoneAPI.Controllers.AccountControllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult FinishZoneTask([FromBody] AccountZoneTask accountZoneTask)
-        {          
-            if (repo.GetAllAccountZoneTasks(accountZoneTask.AccountID,
-                accountZoneTask.ZoneTaskID) == null)
-                return NotFound();
-            accountZoneTask.CompleteDate = DateTime.Now;
+        {
+            AccountZoneTask _accountZoneTask = repo.GetAccountZoneTask(accountZoneTask.AccountID, accountZoneTask.ZoneTaskID);
+            _accountZoneTask.CompleteDate = DateTime.Now;            
             int zoneId = ZoneTaskRepo.GetTask(accountZoneTask.ZoneTaskID).ZoneId;
             ZoneMember zoneMember = ZoneMembersRepo.AddCompletedTask(accountZoneTask.AccountID,zoneId);
             AchievmentsNotifications notifications = gamificationLogic.checkForNewAchievements(accountZoneTask.AccountID);
+            repo.UpdateTask(_accountZoneTask);
             return Ok(notifications);
         }
 

@@ -14,7 +14,7 @@ namespace xZoneAPI.Repositories.AccountRepo
         ICollection<AccountZoneTask> GetAllAccountZoneTasksForAccount(int id);
         ICollection<AccountZoneTask> GetAllAccountZoneTasks(int accountID, int zoneTaskID);
         public ICollection<DateTime> GetListOfActiveDays(int userId);
-
+        public AccountZoneTask GetAccountZoneTask(int accountId, int taskId);
         public int GetFinishedTasks(int userId);
     }
 }
