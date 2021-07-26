@@ -11,6 +11,7 @@ namespace xZoneAPI.Repositories.ZoneRepo
         Zone AddZone(Zone Zone);
         Zone FindZonePreviewById(int Id);
         ICollection<Zone> GetAllZones();
+        ICollection<Zone> GetAllPublicZones();
         bool DeleteZone(Zone Zone);
         bool UpdateZone(Zone Zone);
         public bool Save();

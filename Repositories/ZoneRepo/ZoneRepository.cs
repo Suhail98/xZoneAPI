@@ -57,7 +57,10 @@ namespace xZoneAPI.Repositories.ZoneRepo
         {
             return db.Zones.ToList();
         }
-
+        public ICollection<Zone> GetAllPublicZones()
+        {
+            return db.Zones.Where(u=>u.Privacy == Zone.PrivacyType.Public).ToList();
+        }
         public bool Save()
         {
             return db.SaveChanges() >= 0;
