@@ -50,7 +50,8 @@ namespace xZoneAPI.Recommenders
             List<Zone> result = new List<Zone>();
             foreach (KeyValuePair<double, Zone> pair in simZones)
             {
-                result.Add(pair.Value);
+                if(pair.Value.Privacy != Zone.PrivacyType.Private)
+                 result.Add(pair.Value);
             }
             return result;
         }
