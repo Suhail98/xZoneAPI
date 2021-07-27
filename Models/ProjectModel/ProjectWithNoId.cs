@@ -8,6 +8,14 @@ namespace xZoneAPI.Models.ProjectModel
 {
     public class ProjectWithNoId
     {
+        private ICollection<SectionModel.Section> sections;
+
+        public ProjectWithNoId(string name, ICollection<SectionModel.Section> sections, int? ownerID)
+        {
+            Name = name;
+            this.sections = sections;
+            OwnerID = ownerID;
+        }
 
         public string Name { get; set; }
 

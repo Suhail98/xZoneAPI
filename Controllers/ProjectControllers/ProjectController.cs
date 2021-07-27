@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using xZoneAPI.Models.ProjectModel;
+using xZoneAPI.Models.RoadmapModel;
 using xZoneAPI.Repositories.ProjectRepo;
 
 namespace xZoneAPI.Controllers.ProjectControllers
@@ -64,10 +65,11 @@ namespace xZoneAPI.Controllers.ProjectControllers
             }
             return Ok(xProject);
         }
-        [HttpPost("{roadmapId:int}/{userId:int}")]
-        public IActionResult AddProjectFromRoadmap(int roadmapId, int userId)
+        [HttpPost("roadmap")]
+        public IActionResult AddProjectFromRoadmap(RoadmapRequesterDto roadmap)
         {
-            var OperationStatus = ProjectRepo.addProject(roadmapId, userId);
+            
+            var OperationStatus = ProjectRepo.addProject(roadmap.roadmapId, roadmap.RequesterId);
             return Ok(OperationStatus);
         }
         [HttpDelete("{ProjectId:int}")]

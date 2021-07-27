@@ -76,9 +76,10 @@ namespace xZoneAPI.Repositories.ProjectRepo
                 .ThenInclude(u => u.ProjectTasks)
                 .SingleOrDefault(u => u.Id == roadmapId).Project;
             project.OwnerID = userId;
-            ProjectWithNoId project2 = mapper.Map<ProjectWithNoId>(project);
+            ProjectWithNoId project2 = new ProjectWithNoId(project.Name, project.Sections, project.OwnerID);
             Project project3 = mapper.Map<Project>(project2);
             db.Projects.Add(project3);
+            Save();
             return project3;
         }
 
