@@ -52,9 +52,11 @@ namespace xZoneAPI.Repositories.ZoneRepo
             List<Zone> zones = new List<Zone>();
             foreach(int skillId in skillsId)
             {
-                ZoneSkill zoneSkill = db.ZoneSkills.Include(u => u.Zone).SingleOrDefault(u => u.SkillId == skillId && u.Zone.Privacy == Zone.PrivacyType.Public);
-                if(zoneSkill != null)
+                List<ZoneSkill> zoneSkills = db.ZoneSkills.Include(u => u.Zone).Where(u => u.SkillId == skillId && u.Zone.Privacy == Zone.PrivacyType.Public).ToList();
+                foreach(ZoneSkill zoneSkill in zoneSkills)
+                {
                     zones.Add(zoneSkill.Zone);
+                }
             }
             
             return zones;
