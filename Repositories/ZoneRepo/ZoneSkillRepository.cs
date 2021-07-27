@@ -47,15 +47,18 @@ namespace xZoneAPI.Repositories.ZoneRepo
             List<Skill> skills = zoneSkills.Select(u => u.Skill).ToList();
             return skills;
         }
-        public List<Zone> GetPublicZonesForSkill(ICollection<int> skillsId)
+        public List<Zone> GetPublicZonesForSkill(ICollection<int> skillsId, int userId)
         {
             List<Zone> zones = new List<Zone>();
             foreach(int skillId in skillsId)
             {
-                List<ZoneSkill> zoneSkills = db.ZoneSkills.Include(u => u.Zone).Where(u => u.SkillId == skillId && u.Zone.Privacy == Zone.PrivacyType.Public).ToList();
+                List<ZoneSkill> zoneSkills = db.ZoneSkills.Include(u => u.Zone).Where(u => u.SkillId == skillId
+                && u.Zone.Privacy == Zone.PrivacyType.Public).ToList();
+                List<Zone> userZones = db.ZoneMembers.Where(u => u.AccountId == userId).Select(u=>u.Zone).ToList();
                 foreach(ZoneSkill zoneSkill in zoneSkills)
                 {
-                    zones.Add(zoneSkill.Zone);
+                    if(userZones.SingleOrDefault(u=>u.Id == zoneSkill.Zone.Id) == null)
+                        zones.Add(zoneSkill.Zone);
                 }
             }
             

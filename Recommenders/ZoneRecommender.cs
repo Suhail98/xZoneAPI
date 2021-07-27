@@ -88,7 +88,7 @@ namespace xZoneAPI.Recommenders
         {
             string location = accountRepo.FindAccountById(userId).location;
             ICollection<int> skillsIds = accountSkillRepo.GetAccountSkillsId(userId);
-            ICollection<Zone> zones = zoneSkillRepo.GetPublicZonesForSkill(skillsIds);
+            ICollection<Zone> zones = zoneSkillRepo.GetPublicZonesForSkill(skillsIds, userId);
             List<Zone> result = getTenMaxRecommendedZones(skillsIds, zones,location);
             return result;
         }

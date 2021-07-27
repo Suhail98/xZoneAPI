@@ -57,9 +57,17 @@ namespace xZoneAPI.Repositories.ZoneRepo
         {
             return db.Zones.ToList();
         }
-        public ICollection<Zone> GetAllPublicZones()
+        public ICollection<Zone> GetAllPublicZones(int userId)
         {
-            return db.Zones.Where(u=>u.Privacy == Zone.PrivacyType.Public).ToList();
+            ICollection<Zone> zones = db.Zones.Where(u=>u.Privacy == Zone.PrivacyType.Public).ToList();
+            ICollection<Zone> userZones = db.ZoneMembers.Where(u => u.AccountId == userId).Select(u=>u.Zone).ToList();
+            List<Zone> result = new List<Zone>();
+            foreach(Zone zone in zones)
+            {
+                if (userZones.SingleOrDefault(u => u.Id == zone.Id) == null)
+                    result.Add(zone);
+            }
+            return result;
         }
         public bool Save()
         {
