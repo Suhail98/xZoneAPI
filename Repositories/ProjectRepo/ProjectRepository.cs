@@ -17,6 +17,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using xZoneAPI.Repositories.SectionRepo;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace xZoneAPI.Repositories.ProjectRepo
 {
@@ -25,11 +27,13 @@ namespace xZoneAPI.Repositories.ProjectRepo
         ApplicationDBContext db;
         private readonly AppSettings appSettings;
         ISectionRepository SectionRepo;
-        public ProjectRepository(ApplicationDBContext _db, IOptions<AppSettings> _appSettings, ISectionRepository SectionRepo)
+        IMapper mapper;
+        public ProjectRepository(ApplicationDBContext _db, IOptions<AppSettings> _appSettings, ISectionRepository SectionRepo, IMapper mapper)
         {
             db = _db;
             appSettings = _appSettings.Value;
             this.SectionRepo = SectionRepo;
+            this.mapper = mapper;
         }
         public Project addProject(Project Project)
         {
@@ -64,7 +68,19 @@ namespace xZoneAPI.Repositories.ProjectRepo
             return db.SaveChanges() >= 0;
         }
 
-        
+        public Project addProject(int roadmapId, int userId)
+        {
+            Project project = db.Roadmaps
+                .Include(u => u.Project)
+                .ThenInclude(u => u.Sections)
+                .ThenInclude(u => u.ProjectTasks)
+                .SingleOrDefault(u => u.Id == roadmapId).Project;
+            project.OwnerID = userId;
+            ProjectWithNoId project2 = mapper.Map<ProjectWithNoId>(project);
+            Project project3 = mapper.Map<Project>(project2);
+            db.Projects.Add(project3);
+            return project3;
+        }
 
     }
 }

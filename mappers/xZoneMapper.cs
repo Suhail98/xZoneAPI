@@ -32,7 +32,8 @@ namespace xZoneAPI.mappers
             CreateMap<Zone, ZoneDto>().ReverseMap();
             CreateMap<Post, PostDto>().ReverseMap();
             CreateMap<ZoneTask, ZoneTaskDto>().ReverseMap();
-            CreateMap<Comment, CommentDto>().ReverseMap();
+            CreateMap<Comment, CommentDto>().ReverseMap();            
+            CreateMap<Project, ProjectWithNoId>().ReverseMap();
         }
     }
 }

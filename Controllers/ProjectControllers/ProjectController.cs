@@ -64,7 +64,12 @@ namespace xZoneAPI.Controllers.ProjectControllers
             }
             return Ok(xProject);
         }
-
+        [HttpPost("{roadmapId:int}/{userId:int}")]
+        public IActionResult AddProjectFromRoadmap(int roadmapId, int userId)
+        {
+            var OperationStatus = ProjectRepo.addProject(roadmapId, userId);
+            return Ok(OperationStatus);
+        }
         [HttpDelete("{ProjectId:int}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

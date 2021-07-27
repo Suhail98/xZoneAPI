@@ -15,5 +15,6 @@ namespace xZoneAPI.Repositories.ProjectRepo
         bool DeleteProject(Project Project);
         bool UpdateProject(Project Project);
         public bool Save();
+        public Project addProject(int roadmapId, int userId);
     }
 }
