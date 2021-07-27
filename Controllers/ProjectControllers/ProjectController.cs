@@ -68,7 +68,6 @@ namespace xZoneAPI.Controllers.ProjectControllers
         [HttpPost("roadmap")]
         public IActionResult AddProjectFromRoadmap(RoadmapRequesterDto roadmap)
         {
-            
             var OperationStatus = ProjectRepo.addProject(roadmap.roadmapId, roadmap.RequesterId);
             return Ok(OperationStatus);
         }
