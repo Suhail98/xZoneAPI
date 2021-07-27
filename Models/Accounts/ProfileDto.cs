@@ -13,6 +13,8 @@ namespace xZoneAPI.Models.Accounts
         public int Id { get; set; }
         //public string Email { get; set; }
         public string UserName { get; set; }
+
+        public string email { get; set; }
         public string? bio { get; set; }
         public RankType Rank { get; set; }
         public ICollection<Account> Friends { get; set; }
